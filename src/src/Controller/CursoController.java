@@ -4,9 +4,22 @@
  */
 package src.Controller;
 
+import java.util.List;
+import src.dao.CursoDAO;
+import src.model.Curso;
+
 public class CursoController {
-    
-    
-    
-    
+    private CursoDAO cursoDAO;
+
+    public CursoController(CursoDAO cursoDAO) {
+        this.cursoDAO = cursoDAO;
+    }
+
+    // REQMS-007: Registrar curso
+    public boolean registrarCurso(Curso curso, int semanas) {
+        return cursoDAO.insertarCurso(curso,semanas);
+    }
+
+    // LISTAR CURSOS 
+
 }
