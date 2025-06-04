@@ -10,8 +10,11 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement; 
 import java.sql.Date;     
+import java.util.ArrayList;
+import java.util.List;
 
 import servicio.DocenteService;
+import src.model.Curso;
 
 
 
@@ -55,7 +58,8 @@ public class DocenteDAO {
         }
     }
     
-    
+
+
     public Docente loginDocente(String correo, String contraseña) {
         String sql = "SELECT * FROM Docente WHERE correo = ? AND contraseña = ?";
 

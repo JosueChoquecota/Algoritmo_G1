@@ -21,5 +21,8 @@ public class CursoController {
     }
 
     // LISTAR CURSOS 
+    public List<Curso> mostrarCursosDocente (int docID) {
+        return cursoDAO.obtenerCursosPorDocente(docID);
+    }
 
 }

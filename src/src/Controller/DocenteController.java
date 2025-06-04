@@ -6,6 +6,7 @@ package src.Controller;
 
 import java.util.List;
 import src.dao.DocenteDAO;
+import src.model.Curso;
 import src.model.Docente;
 
 /**
@@ -28,4 +29,6 @@ public class DocenteController {
     public Docente loginDocente(String correo, String contrasena) {
         return docenteDAO.loginDocente(correo, contrasena);
     }
+    
+
 }

@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.PreparedStatement; 
 import java.sql.Date;     
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import servicio.CursoService;
 import src.model.Curso;
@@ -87,4 +89,34 @@ public class CursoDAO {
             return false;
         }
     }
+      public List<Curso> obtenerCursosPorDocente(int docID) {
+      List<Curso> cursos = new ArrayList<>();
+      String sql = """
+          SELECT c.cursoNombre, c.cursoCodigo, c.modalidad, c.ciclo
+          FROM Curso c
+          INNER JOIN CursoDocente cd ON c.cursoID = cd.cursoID
+          WHERE cd.docID = ?
+      """;
+
+      try (Connection connection = conn.establecerConexion();
+           PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+          stmt.setInt(1, docID);
+          ResultSet rs = stmt.executeQuery();
+
+          while (rs.next()) {
+              Curso curso = new Curso();
+              curso.setCursoNombre(rs.getString("cursoNombre"));
+              curso.setCursoCodigo(rs.getString("cursoCodigo"));
+              curso.setModalidad(rs.getString("modalidad"));
+              curso.setCiclo(rs.getString("ciclo"));
+
+              cursos.add(curso);
+          }
+      } catch (SQLException e) {
+          System.out.println("❌ Error obteniendo cursos por docente: " + e.getMessage());
+      }
+
+      return cursos;
+  }
 }
