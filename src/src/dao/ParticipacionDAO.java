@@ -66,8 +66,7 @@ public class ParticipacionDAO {
         return false;
     }
     }
-    
-    
+
     public List<Participacion> obtenerParticipacionesPorEstudiante(int estID) {
     List<Participacion> lista = new ArrayList<>();
     String sql = "SELECT p.partID, p.tipo, p.puntaje, p.observacion, p.fecha, p.sesID " +
@@ -95,8 +94,10 @@ public class ParticipacionDAO {
     } catch (SQLException e) {
         System.out.println("Error al obtener participaciones: " + e.getMessage());
     }
-
     return lista;
 }
+    
+    
+    
     
 }

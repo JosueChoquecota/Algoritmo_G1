@@ -4,7 +4,10 @@
  */
 package src.Controller;
 
+import java.sql.SQLException;
+import java.util.List;
 import src.dao.EstudianteCursoDAO;
+import src.model.EstudianteCurso;
 
 public class EstudianteCursoController {
     private EstudianteCursoDAO inscripcionDAO;
@@ -15,5 +18,8 @@ public class EstudianteCursoController {
 
     public boolean registrarInscripcion(int estID, int cursoID, int docID) {
         return inscripcionDAO.inscribirEstudianteACurso(estID, cursoID, docID);
+    }
+     public List<EstudianteCurso> obtenerEstudiantesPorCurso(int cursoID, int docenteID) throws SQLException {
+        return inscripcionDAO.listarEstudiantesPorCursoYDocente(cursoID, docenteID);
     }
 }

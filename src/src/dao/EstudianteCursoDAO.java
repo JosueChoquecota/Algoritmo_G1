@@ -7,6 +7,15 @@ package src.dao;
 import src.util.ConexionBD;
 import java.sql.SQLException;
 import java.sql.PreparedStatement; 
+import java.util.ArrayList;
+import java.util.List;
+import java.sql.ResultSet;
+
+import src.model.Curso;
+import src.model.Docente;
+import src.model.Estudiante;
+import src.model.EstudianteCurso;
+
 
 public class EstudianteCursoDAO {
     private ConexionBD conn;
@@ -30,18 +39,47 @@ public class EstudianteCursoDAO {
             return false;
         }
     }
-    public static void main(String[] args) {
+   
+    public List<EstudianteCurso> listarEstudiantesPorCursoYDocente(int cursoID, int docenteID) throws SQLException {
+    List<EstudianteCurso> lista = new ArrayList<>();
+    String sql = "{call sp_ListarEstudiantesPorCursoYDocente(?, ?)}";
 
-        ConexionBD conn = new ConexionBD();
-        
-        EstudianteCursoDAO inscripcionDAO = new EstudianteCursoDAO(conn);
+    try (PreparedStatement stmt = conn.establecerConexion().prepareStatement(sql)) {
 
-        boolean resultado = inscripcionDAO.inscribirEstudianteACurso(6006, 1017,5001);
+        stmt.setInt(1, cursoID);
+        stmt.setInt(2, docenteID);
+        ResultSet rs = stmt.executeQuery();
 
-        if (resultado) {
-            System.out.println("✅ Inscripción realizada correctamente.");
-        } else {
-            System.out.println("❌ Falló la inscripción.");
+        while (rs.next()) {
+            Estudiante est = new Estudiante();
+            est.setEstID(rs.getInt("estID"));
+            est.setNombre(rs.getString("nombre"));
+            est.setApellido(rs.getString("apellido"));
+            est.setCarrera(rs.getString("carrera"));
+            est.setCorreo(rs.getString("correo"));
+            est.setCodEst(rs.getString("codigo"));
+
+            Curso curso = new Curso();
+            curso.setCursoID(rs.getInt("cursoID"));
+            curso.setCursoNombre(rs.getString("curso"));
+
+            Docente docente = new Docente();
+            docente.setDocID(docenteID); // puedes setear más si necesitas
+
+            EstudianteCurso ec = new EstudianteCurso(
+                est,
+                curso,
+                rs.getDate("fechaInscripcion").toLocalDate(),
+                rs.getString("estado"),
+                rs.getInt("puntosTotales"),
+                docente
+            );
+
+            lista.add(ec);
         }
-    }
+
+    return lista;
+}
+}
+
 }

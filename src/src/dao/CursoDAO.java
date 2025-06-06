@@ -119,4 +119,19 @@ public class CursoDAO {
 
       return cursos;
   }
+      
+      public int obtenerCursoIDPorCodigo(String codigo) {
+        String sql = "SELECT cursoID FROM Curso WHERE cursoCodigo = ?";
+        try (Connection connection = conn.establecerConexion();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, codigo);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("cursoID");
+            }
+        } catch (SQLException e) {
+            System.out.println("❌ Error obteniendo cursoID: " + e.getMessage());
+        }
+        return -1;
+}
 }

@@ -159,16 +159,13 @@ public class LoginForm extends javax.swing.JFrame {
         ConexionBD conexion = new ConexionBD();
             DocenteDAO docenteDAO = new DocenteDAO(conexion);
             DocenteController docenteController = new DocenteController(docenteDAO);
-
             String correo = Tcorreo.getText();
             String contrasena = Tcontra.getText(); 
-
             Docente docenteLogueado = docenteController.loginDocente(correo, contrasena);
-
+            
             if (docenteLogueado != null) {
             javax.swing.JOptionPane.showMessageDialog(this, "✅ Bienvenido al sistema de participación");
-
-            dashBoardDocente dashboard = new dashBoardDocente(docenteLogueado); // le pasamos el objeto Docente
+            dashBoardDocente dashboard = new dashBoardDocente(docenteLogueado);
             dashboard.setVisible(true);
             this.dispose();
 
