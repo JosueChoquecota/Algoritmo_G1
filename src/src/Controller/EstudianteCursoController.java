@@ -19,7 +19,9 @@ public class EstudianteCursoController {
     public boolean registrarInscripcion(int estID, int cursoID, int docID) {
         return inscripcionDAO.inscribirEstudianteACurso(estID, cursoID, docID);
     }
-     public List<EstudianteCurso> obtenerEstudiantesPorCurso(int cursoID, int docenteID) throws SQLException {
-        return inscripcionDAO.listarEstudiantesPorCursoYDocente(cursoID, docenteID);
+ 
+     public List<EstudianteCurso> obtenerEstudiantesPorSesion(int sesionID) {
+        return inscripcionDAO.obtenerEstudiantesPorSesion(sesionID);
     }
+
 }

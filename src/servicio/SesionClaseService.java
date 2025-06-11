@@ -22,7 +22,7 @@ public class SesionClaseService {
         this.detalleDAO = detalleDAO;
     }
 
-    public void generarSesionesConDetalles(
+ public void generarSesionesConDetalles(
     Curso curso,
     int semanas,
     boolean incluirTeorica,
@@ -30,64 +30,75 @@ public class SesionClaseService {
     int horasTeorica,
     boolean incluirPractica,
     Integer docentePracticaID,
-    int horasPractica
+    int horasPractica,
+    int sesionesPorSemana // 👈 nuevo parámetro
 ) {
-    LocalDate fechaInicio = curso.getFechaInicio();
+    LocalDate fecha1 = curso.getFechaInicio(); // primera sesión base
+    LocalDate fecha2 = curso.getFechaFin();    // segunda sesión base
     String ciclo = curso.getCiclo();
 
-    int sesionesPorSemana = 2; // ✅ Asumes 2 clases por semana (por ejemplo martes y viernes)
-    int totalSesiones = semanas * sesionesPorSemana;
-
-    for (int i = 0; i < totalSesiones; i++) {
-        int semana = (i / sesionesPorSemana) + 1;
+    for (int semana = 1; semana <= semanas; semana++) {
         int unidad = ((semana - 1) / 4) + 1;
 
-        // Distribuye las fechas: una cada 3 días a partir del inicio
-        LocalDate fechaSesion = fechaInicio.plusDays(i * 3);
+        // ✅ Primera sesión de la semana (si teórica o práctica)
+        if (incluirTeorica || sesionesPorSemana == 1) {
+            LocalDate fechaSesion = fecha1.plusWeeks(semana - 1);
 
-        SesionClase sesion = new SesionClase();
-        sesion.setCurso(curso);
-        sesion.setFecha(fechaSesion);
-        sesion.setSemana(semana);
-        sesion.setTema("Semana " + semana);
-        sesion.setCiclo(ciclo);
-        sesion.setUnidad(unidad);
+            SesionClase sesion = new SesionClase();
+            sesion.setCurso(curso);
+            sesion.setFecha(fechaSesion);
+            sesion.setSemana(semana);
+            sesion.setTema("Semana " + semana + " - " + (incluirTeorica ? "Teórica" : "Única"));
+            sesion.setCiclo(ciclo);
+            sesion.setUnidad(unidad);
 
-        if (!sesionDAO.insertarSesion(sesion)) {
-            System.out.println("❌ Error al insertar sesión (semana " + semana + ")");
-            continue;
-        }
+            if (sesionDAO.insertarSesion(sesion)) {
+                SesionDetalle detalle = new SesionDetalle();
+                detalle.setTipo(incluirTeorica ? "teórica" : (incluirPractica ? "práctica" : "única"));
+                detalle.setDuracionHoras(incluirTeorica ? horasTeorica : horasPractica);
 
-        // Parte teórica
-        if (incluirTeorica) {
-            SesionDetalle teorica = new SesionDetalle();
-            teorica.setTipo("teórica");
-            teorica.setDuracionHoras(horasTeorica);
-            if (docenteTeoricaID != null) {
-                Docente d = new Docente();
-                d.setDocID(docenteTeoricaID);
-                teorica.setDocente(d);
+                Integer docenteID = incluirTeorica ? docenteTeoricaID : docentePracticaID;
+                if (docenteID != null) {
+                    Docente d = new Docente();
+                    d.setDocID(docenteID);
+                    detalle.setDocente(d);
+                }
+
+                detalleDAO.registrarDetalleSesion(sesion.getSesID(), detalle);
+                System.out.println("✅ Sesión 1 - Semana " + semana + ": " + fechaSesion);
             }
-            detalleDAO.insertarDetalle(sesion.getSesID(), teorica);
         }
 
-        // Parte práctica
-        if (incluirPractica) {
-            SesionDetalle practica = new SesionDetalle();
-            practica.setTipo("práctica");
-            practica.setDuracionHoras(horasPractica);
-            if (docentePracticaID != null) {
-                Docente d = new Docente();
-                d.setDocID(docentePracticaID);
-                practica.setDocente(d);
+        // ✅ Segunda sesión de la semana (solo si se quieren 2 sesiones y ambas están activadas)
+        if (sesionesPorSemana == 2 && incluirTeorica && incluirPractica) {
+            LocalDate fechaSesion = fecha2.plusWeeks(semana - 1);
+
+            SesionClase sesion = new SesionClase();
+            sesion.setCurso(curso);
+            sesion.setFecha(fechaSesion);
+            sesion.setSemana(semana);
+            sesion.setTema("Semana " + semana + " - Práctica");
+            sesion.setCiclo(ciclo);
+            sesion.setUnidad(unidad);
+
+            if (sesionDAO.insertarSesion(sesion)) {
+                SesionDetalle detalle = new SesionDetalle();
+                detalle.setTipo("práctica");
+                detalle.setDuracionHoras(horasPractica);
+
+                if (docentePracticaID != null) {
+                    Docente d = new Docente();
+                    d.setDocID(docentePracticaID);
+                    detalle.setDocente(d);
+                }
+
+                detalleDAO.registrarDetalleSesion(sesion.getSesID(), detalle);
+                System.out.println("✅ Sesión 2 - Semana " + semana + ": " + fechaSesion);
             }
-            detalleDAO.insertarDetalle(sesion.getSesID(), practica);
         }
-
-        System.out.println("✅ Sesión generada (Semana " + semana + ", Unidad " + unidad + ", Fecha " + fechaSesion + ")");
     }
 
-    System.out.println("=== Todas las sesiones fueron generadas correctamente ===");
+    System.out.println("=== ✅ Generación de sesiones finalizada ===");
 }
 
 }

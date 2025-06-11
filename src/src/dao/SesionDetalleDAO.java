@@ -4,10 +4,12 @@
  */
 package src.dao;
 
+import java.sql.Connection;
 import src.model.SesionDetalle;
 import src.util.ConexionBD;
 import java.sql.SQLException;
 import java.sql.PreparedStatement; 
+import java.sql.Statement;
 
 /**
  *
@@ -21,25 +23,29 @@ public class SesionDetalleDAO {
         this.conn = conn;
     }
     
-    public boolean insertarDetalle(int sesID, SesionDetalle detalle) {
-    String sql = "INSERT INTO SesionDetalle (sesID, tipo, duracionHoras, docenteID) VALUES (?, ?, ?, ?)";
-    try (PreparedStatement stmt = conn.establecerConexion().prepareStatement(sql)) {
-        stmt.setInt(1, sesID);
-        stmt.setString(2, detalle.getTipo());
-        stmt.setInt(3, detalle.getDuracionHoras());
+   public boolean registrarDetalleSesion(int sesID, SesionDetalle detalle) {
+        String sql = "INSERT INTO SesionDetalle (sesID, tipo, duracionHoras, docenteID) VALUES (?, ?, ?, ?)";
 
-        if (detalle.getDocente() != null) {
-            stmt.setInt(4, detalle.getDocente().getDocID());
-        } else {
-            stmt.setNull(4, java.sql.Types.INTEGER);
+        try (Connection connection = conn.establecerConexion();
+             PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            stmt.setInt(1, sesID);
+            stmt.setString(2, detalle.getTipo());
+            stmt.setInt(3, detalle.getDuracionHoras());
+
+            if (detalle.getDocente() != null) {
+                stmt.setInt(4, detalle.getDocente().getDocID());
+            } else {
+                stmt.setNull(4, java.sql.Types.INTEGER); // soporte para docente null si es necesario
+            }
+
+            int filas = stmt.executeUpdate();
+            return filas > 0;
+
+        } catch (SQLException e) {
+            System.out.println("❌ Error al registrar detalle de sesión: " + e.getMessage());
+            return false;
         }
-
-        stmt.executeUpdate();
-        return true;
-    } catch (SQLException e) {
-        System.out.println("Error insertando detalle: " + e.getMessage());
-        return false;
     }
-}
 
 }

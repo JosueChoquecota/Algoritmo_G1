@@ -22,4 +22,8 @@ public class ParticipacionesService {
     public List<Participacion> obtenerParticipacionesPorEstudiante(int estID) {
     return participacionDAO.obtenerParticipacionesPorEstudiante(estID);
 }
+    public boolean insertarParticipacion(Participacion participacion) {
+    return participacionDAO.insertarParticipacion(participacion);
+}
+
 }

@@ -17,17 +17,19 @@ public class EstudianteCurso {
     private String estado;
     private int participacionTotal;
     private Docente docente;
+    private int sesionID;
 
     public EstudianteCurso() {
     }
 
-    public EstudianteCurso(Estudiante estudiante, Curso curso, LocalDate fechaInscripcion, String estado, int participacionTotal, Docente docente) {
+    public EstudianteCurso(Estudiante estudiante, Curso curso, LocalDate fechaInscripcion, String estado, int participacionTotal, Docente docente, int sesionID) {
         this.estudiante = estudiante;
         this.curso = curso;
         this.fechaInscripcion = fechaInscripcion;
         this.estado = estado;
         this.participacionTotal = participacionTotal;
         this.docente = docente;
+        this.sesionID = sesionID;
     }
 
     public Estudiante getEstudiante() {
@@ -78,6 +80,15 @@ public class EstudianteCurso {
         this.docente = docente;
     }
 
+    public int getSesionID() {
+        return sesionID;
+    }
+
+    public void setSesionID(int sesionID) {
+        this.sesionID = sesionID;
+    }
+
+    
     
     
     

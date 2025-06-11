@@ -27,24 +27,5 @@ public class TestEstudiantesPorCurso {
         EstudianteCursoController controller = new EstudianteCursoController(
             new EstudianteCursoDAO(new ConexionBD())
         );
-
-        List<EstudianteCurso> estudiantes = controller.obtenerEstudiantesPorCurso(cursoID, docenteID);
-
-        if (estudiantes.isEmpty()) {
-            System.out.println("⚠️ No se encontraron estudiantes.");
-        } else {
-            System.out.println("✅ Estudiantes del curso:");
-            for (EstudianteCurso ec : estudiantes) {
-                Estudiante e = ec.getEstudiante();
-                Curso c = ec.getCurso();
-                Docente d = ec.getDocente();
-                LocalDate fecha = ec.getFechaInscripcion();
-
-                System.out.printf("👨‍🎓 %s %s | Carrera: %s | Correo: %s | Código: %s | Curso: %s | Puntos: %d | Fecha: %s%n",
-                    e.getNombre(), e.getApellido(), e.getCarrera(),
-                    e.getCorreo(), e.getCodEst(), c.getCursoNombre(),
-                    ec.getParticipacionTotal(), fecha);
-            }
-        }
     }
 }

@@ -4,17 +4,19 @@
  */
 package src.dao;
 
+import java.sql.Connection;
 import src.util.ConexionBD;
 import java.sql.SQLException;
 import java.sql.PreparedStatement; 
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.ResultSet;
-
+import java.sql.CallableStatement;
 import src.model.Curso;
 import src.model.Docente;
 import src.model.Estudiante;
 import src.model.EstudianteCurso;
+import src.model.Participacion;
 
 
 public class EstudianteCursoDAO {
@@ -40,46 +42,51 @@ public class EstudianteCursoDAO {
         }
     }
    
-    public List<EstudianteCurso> listarEstudiantesPorCursoYDocente(int cursoID, int docenteID) throws SQLException {
+    
+public List<EstudianteCurso> obtenerEstudiantesPorSesion(int sesionID) {
     List<EstudianteCurso> lista = new ArrayList<>();
-    String sql = "{call sp_ListarEstudiantesPorCursoYDocente(?, ?)}";
+    System.out.println("Sesión ID: " + sesionID);
 
-    try (PreparedStatement stmt = conn.establecerConexion().prepareStatement(sql)) {
+    String sql = "{CALL ObtenerEstudiantesPorSesion(?)}";
 
-        stmt.setInt(1, cursoID);
-        stmt.setInt(2, docenteID);
+    try (Connection connection = conn.establecerConexion();
+         CallableStatement stmt = connection.prepareCall(sql)) {
+
+        stmt.setInt(1, sesionID);
+
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
-            Estudiante est = new Estudiante();
-            est.setEstID(rs.getInt("estID"));
-            est.setNombre(rs.getString("nombre"));
-            est.setApellido(rs.getString("apellido"));
-            est.setCarrera(rs.getString("carrera"));
-            est.setCorreo(rs.getString("correo"));
-            est.setCodEst(rs.getString("codigo"));
+            Estudiante estudiante = new Estudiante();
+            estudiante.setNombre(rs.getString("nombre"));
+            estudiante.setApellido(rs.getString("apellido"));
+            estudiante.setCarrera(rs.getString("carrera"));
+            estudiante.setCorreo(rs.getString("correo"));
+            estudiante.setCodEst(rs.getString("codEst"));
 
             Curso curso = new Curso();
-            curso.setCursoID(rs.getInt("cursoID"));
-            curso.setCursoNombre(rs.getString("curso"));
+            curso.setCursoNombre(rs.getString("curso_nombre"));
 
-            Docente docente = new Docente();
-            docente.setDocID(docenteID); // puedes setear más si necesitas
-
-            EstudianteCurso ec = new EstudianteCurso(
-                est,
-                curso,
-                rs.getDate("fechaInscripcion").toLocalDate(),
-                rs.getString("estado"),
-                rs.getInt("puntosTotales"),
-                docente
-            );
+            EstudianteCurso ec = new EstudianteCurso();
+            ec.setEstudiante(estudiante);
+            ec.setCurso(curso);
+            ec.setFechaInscripcion(rs.getDate("fechaInscripcion").toLocalDate());
+            ec.setEstado(rs.getString("estado"));
+            ec.setParticipacionTotal(rs.getInt("participacionTotal"));
+            ec.setSesionID(sesionID);
 
             lista.add(ec);
         }
 
+    } catch (SQLException ex) {
+        System.out.println("❌ Error al obtener estudiantes por sesión: " + ex.getMessage());
+    }
+
     return lista;
 }
-}
+
+
+
+    
 
 }

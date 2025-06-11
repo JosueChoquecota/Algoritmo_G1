@@ -33,39 +33,27 @@ public class ParticipacionDAO {
     }
 
     // REQMS-010: Insertar participación
-    public boolean insertarParticipacion(Participacion participacion) {
-        
-        if (!ParticipaciónValidacion.validarParticipacion(participacion)) {
-        System.out.println("❌ Participación no válida.");
-        return false;
-    }
-    String sql = "INSERT INTO Participacion (estudianteID, sesID, tipo, puntaje, observacion, fecha, docID) " +
-                 "VALUES (?, ?, ?, ?, ?, ?, ?)";
-
+   public boolean insertarParticipacion(Participacion participacion) {
+    String sql = "INSERT INTO Participacion (estudianteID, sesID, docID, puntaje, tipo, observacion, fecha) VALUES (?, ?, ?, ?, ?, ?, ?)";
     try (Connection connection = conn.establecerConexion();
-         PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+         PreparedStatement stmt = connection.prepareStatement(sql)) {
 
         stmt.setInt(1, participacion.getEstudiante().getEstID());
         stmt.setInt(2, participacion.getSesion().getSesID());
-        stmt.setString(3, participacion.getTipo());
+        stmt.setInt(3, participacion.getDocente().getDocID());
         stmt.setInt(4, participacion.getPuntaje());
-        stmt.setString(5, participacion.getObservacion());
-        stmt.setDate(6, Date.valueOf(participacion.getFecha()));
-        stmt.setInt(7, participacion.getDocente().getDocID()); 
+        stmt.setString(5, participacion.getTipo());
+        stmt.setString(6, participacion.getObservacion());
+        stmt.setDate(7, java.sql.Date.valueOf(participacion.getFecha()));
 
-        stmt.executeUpdate();
-
-        ResultSet rs = stmt.getGeneratedKeys();
-        if (rs.next()) {
-            participacion.setPartID(rs.getInt(1));
-        }
-
-        return true;
+        int filas = stmt.executeUpdate();
+        return filas > 0;
     } catch (SQLException e) {
-        System.out.println("❌ Error insertando participación: " + e.getMessage());
+        System.out.println("❌ Error al insertar participación: " + e.getMessage());
         return false;
     }
-    }
+}
+
 
     public List<Participacion> obtenerParticipacionesPorEstudiante(int estID) {
     List<Participacion> lista = new ArrayList<>();

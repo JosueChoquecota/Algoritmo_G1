@@ -18,71 +18,28 @@ import src.Controller.SesionClaseController;
 public class MainGenerarSesionesConDetalles {
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        ConexionBD conexion = new ConexionBD();
+        SesionClaseDAO sesionDAO = new SesionClaseDAO(conexion);
+        SesionDetalleDAO detalleDAO = new SesionDetalleDAO(conexion);
 
-        ConexionBD conexionBD = new ConexionBD();
-        SesionClaseDAO sesionDAO = new SesionClaseDAO(conexionBD);
-        SesionDetalleDAO detalleDAO = new SesionDetalleDAO(conexionBD);
         SesionClaseController controller = new SesionClaseController(sesionDAO, detalleDAO);
 
-        System.out.println("=== GENERAR SESIONES USANDO CONTROLLER ===");
-
-        System.out.print("ID del curso: ");
-        int cursoID = Integer.parseInt(sc.nextLine());
-
-        System.out.print("Fecha de inicio (AAAA-MM-DD): ");
-        LocalDate fechaInicio = LocalDate.parse(sc.nextLine());
-
-        System.out.print("Cantidad de semanas: ");
-        int semanas = Integer.parseInt(sc.nextLine());
-
-        System.out.print("Ciclo académico (ej. 2025-I): ");
-        String ciclo = sc.nextLine();
-
-        System.out.print("¿Deseas incluir parte teórica? (s/n): ");
-        boolean incluirTeorica = sc.nextLine().equalsIgnoreCase("s");
-
-        Integer docenteTeoricaID = null;
-        int horasTeorica = 0;
-        if (incluirTeorica) {
-            System.out.print("ID del docente para parte teórica (0 si no aplica): ");
-            int id = Integer.parseInt(sc.nextLine());
-            docenteTeoricaID = (id > 0) ? id : null;
-
-            System.out.print("Duración en horas de la parte teórica: ");
-            horasTeorica = Integer.parseInt(sc.nextLine());
-        }
-
-        System.out.print("¿Deseas incluir parte práctica? (s/n): ");
-        boolean incluirPractica = sc.nextLine().equalsIgnoreCase("s");
-
-        Integer docentePracticaID = null;
-        int horasPractica = 0;
-        if (incluirPractica) {
-            System.out.print("ID del docente para parte práctica (0 si no aplica): ");
-            int id = Integer.parseInt(sc.nextLine());
-            docentePracticaID = (id > 0) ? id : null;
-
-            System.out.print("Duración en horas de la parte práctica: ");
-            horasPractica = Integer.parseInt(sc.nextLine());
-        }
-
-        // OBTENCION DEL CURSO
         Curso curso = new Curso();
-        curso.setCursoID(cursoID);
+        curso.setCursoID(1017); // Asegúrate que este ID existe en tu BD
+        curso.setCiclo("2025-2");
+        curso.setFechaInicio(LocalDate.of(2025, 4, 11)); // Lunes
+        curso.setFechaFin(LocalDate.of(2025, 4, 16)); // Ajusta según tu curso real
 
-        // CONTROLLER
-        controller.generarSesionesConDetalles(
-                curso,
-                fechaInicio,
-                semanas,
-                ciclo,
-                incluirTeorica,
-                docenteTeoricaID,
-                horasTeorica,
-                incluirPractica,
-                docentePracticaID,
-                horasPractica
+        controller.generarSesiones(
+            curso,
+            5,            // semanas
+            true,         // incluir teórica
+            5001,         // ID docente teórica
+            2,            // horas teórica
+            true,         // incluir práctica 
+            5001,         // ID docente práctica
+            3,             // horas práctica
+            2
         );
     }
 }

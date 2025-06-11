@@ -6,6 +6,7 @@ package src.Controller;
 
 import java.util.List;
 import servicio.ParticipacionesService;
+import src.dao.ParticipacionDAO;
 import src.model.Participacion;
 
 /**
@@ -13,14 +14,23 @@ import src.model.Participacion;
  * @author ASUS
  */
 public class ParticipacionController {
-    
-    private ParticipacionesService participacionesService;
 
-    public ParticipacionController(ParticipacionesService participacionesService) {
-        this.participacionesService = participacionesService;
-    }
+    private final ParticipacionesService participacionesService;
+    private ParticipacionDAO participacion;
+    
+    public ParticipacionController(ParticipacionesService service, ParticipacionDAO dao) {
+    this.participacionesService = service;
+    this.participacion = dao;
+}
 
     public List<Participacion> listarParticipacionesPorEstudiante(int estID) {
         return participacionesService.obtenerParticipacionesPorEstudiante(estID);
     }
+
+    public boolean insertarParticipacion(Participacion participacion) {
+        return participacionesService.insertarParticipacion(participacion);
+    }
 }
+
+
+
