@@ -39,8 +39,8 @@ public class CursoDAO {
         LocalDate fechaInicio = curso.getFechaInicio();
         LocalDate fechaFin = fechaInicio.plusWeeks(semanas);
 
-        String sql = "INSERT INTO Curso (cursoNombre, cursoCodigo, ciclo, fechaInicio, fechaFin, modalidad, creditos, estado) " +
-                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Curso (cursoNombre, cursoCodigo, ciclo, fechaInicio, fechaFin, modalidad, creditos, estado, horario) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = conn.establecerConexion();
              PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -53,6 +53,7 @@ public class CursoDAO {
             stmt.setString(6, curso.getModalidad());
             stmt.setInt(7, curso.getCreditos());
             stmt.setBoolean(8, true);
+            stmt.setString(9, curso.getHorario());
             stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
@@ -89,7 +90,7 @@ public class CursoDAO {
             return false;
         }
     }
-      public List<Curso> obtenerCursosPorDocente(int docID) {
+    public List<Curso> obtenerCursosPorDocente(int docID) {
       List<Curso> cursos = new ArrayList<>();
       String sql = """
           SELECT c.cursoNombre, c.cursoCodigo, c.modalidad, c.ciclo
@@ -119,8 +120,7 @@ public class CursoDAO {
 
       return cursos;
   }
-      
-      public int obtenerCursoIDPorCodigo(String codigo) {
+    public int obtenerCursoIDPorCodigo(String codigo) {
         String sql = "SELECT cursoID FROM Curso WHERE cursoCodigo = ?";
         try (Connection connection = conn.establecerConexion();
              PreparedStatement stmt = connection.prepareStatement(sql)) {

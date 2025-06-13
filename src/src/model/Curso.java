@@ -17,11 +17,12 @@ public class Curso {
     private String modalidad;
     private int creditos;
     private Boolean estado;
+    private String horario;
     
      public Curso() {
      }
 
-    public Curso(int cursoID, String cursoNombre, String cursoCodigo, String ciclo, LocalDate  fechaInicio, LocalDate  fechaFin, String modalidad, int creditos, Boolean estado) {
+    public Curso(int cursoID, String cursoNombre, String cursoCodigo, String ciclo, LocalDate fechaInicio, LocalDate fechaFin, String modalidad, int creditos, Boolean estado, String horario) {
         this.cursoID = cursoID;
         this.cursoNombre = cursoNombre;
         this.cursoCodigo = cursoCodigo;
@@ -31,6 +32,7 @@ public class Curso {
         this.modalidad = modalidad;
         this.creditos = creditos;
         this.estado = estado;
+        this.horario = horario;
     }
 
     public int getCursoID() {
@@ -65,19 +67,19 @@ public class Curso {
         this.ciclo = ciclo;
     }
 
-    public LocalDate  getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(LocalDate  fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public LocalDate  getFechaFin() {
+    public LocalDate getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(LocalDate  fechaFin) {
+    public void setFechaFin(LocalDate fechaFin) {
         this.fechaFin = fechaFin;
     }
 
@@ -104,7 +106,16 @@ public class Curso {
     public void setEstado(Boolean estado) {
         this.estado = estado;
     }
-    
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+
+   
  
      
  

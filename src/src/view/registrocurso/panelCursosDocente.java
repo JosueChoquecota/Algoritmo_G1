@@ -13,6 +13,7 @@ import src.Controller.CursoController;
 import src.dao.CursoDAO;
 import src.model.Curso;
 import src.model.Docente;
+import src.model.SesionDetalle;
 import src.util.ConexionBD;
 import src.view.docente.dashBoardDocente;
 import src.view.participaciones.PanelEstudianteCurso;
@@ -27,6 +28,7 @@ public class panelCursosDocente extends javax.swing.JPanel {
     private Docente docente;
     private javax.swing.JPanel panelDashboard; // << NUEVO
     private CursoDAO curso;
+    private SesionDetalle sesion;
 
     /**
      * Creates new form panelCursosDocente

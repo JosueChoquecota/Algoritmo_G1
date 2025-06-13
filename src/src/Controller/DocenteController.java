@@ -30,5 +30,7 @@ public class DocenteController {
         return docenteDAO.loginDocente(correo, contrasena);
     }
     
-
+    public int obtenerDocenteIDPorCorreo(String correo) {
+        return docenteDAO.obtenerDocenteIDPorCorreo(correo);
+    }
 }

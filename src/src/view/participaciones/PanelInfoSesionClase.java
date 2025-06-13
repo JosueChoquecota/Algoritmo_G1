@@ -15,6 +15,7 @@ import src.dao.SesionClaseDAO;
 import src.dao.SesionDetalleDAO;
 import src.model.Docente;
 import src.model.EstudianteCurso;
+import src.model.SesionDetalle;
 import src.util.ConexionBD;
 
 /**
@@ -25,7 +26,6 @@ public class PanelInfoSesionClase extends javax.swing.JPanel {
 
     private Docente docente;
     private int cursoID;
-    private int sesionID;
     private JPanel panelDashboard;
     
     public PanelInfoSesionClase(Docente docente, int cursoID, JPanel panelDashboard) {
@@ -37,7 +37,7 @@ public class PanelInfoSesionClase extends javax.swing.JPanel {
 
     }
 
-   private void cargarSesiones() {
+   public void cargarSesiones() {
      SesionClaseController controller = new SesionClaseController(
             new SesionClaseDAO(new ConexionBD()),
             new SesionDetalleDAO(new ConexionBD())
@@ -183,11 +183,9 @@ public class PanelInfoSesionClase extends javax.swing.JPanel {
 
         int sesionIDSeleccionado = obtenerSesionIDDesdeTabla(filaSeleccionada);
         System.out.println("✅ Sesión seleccionada: " + sesionIDSeleccionado);
+        
+        PanelEstudianteCurso panelEstudiantes = new PanelEstudianteCurso(cursoID, docente, sesionIDSeleccionado, panelDashboard);
 
-        // Abrir nuevo panel con estudiantes de esa sesión
-        PanelEstudianteCurso panelEstudiantes = new PanelEstudianteCurso(
-            cursoID, docente.getDocID(), sesionIDSeleccionado, panelDashboard
-        );
         panelEstudiantes.setSize(panelDashboard.getWidth(), panelDashboard.getHeight());
         panelDashboard.removeAll();
         panelDashboard.add(panelEstudiantes, BorderLayout.CENTER);

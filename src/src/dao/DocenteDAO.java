@@ -27,7 +27,7 @@ public class DocenteDAO {
        this.conn = conn;
        this.service = new DocenteService(conn);
    }
-   
+   //REQMS-001: Registrar Docente
     public boolean insertarDocente(Docente docente) {
     try {
         Connection connection = conn.establecerConexion();
@@ -58,8 +58,7 @@ public class DocenteDAO {
         }
     }
     
-
-
+    //REQMS-004: Iniciar sesión
     public Docente loginDocente(String correo, String contraseña) {
         String sql = "SELECT * FROM Docente WHERE correo = ? AND contraseña = ?";
 
@@ -92,6 +91,29 @@ public class DocenteDAO {
 
         return null; 
     }
+    
+    public int obtenerDocenteIDPorCorreo(String correo) {
+        int docenteID = -1;
+        
+        String sql = "SELECT docID FROM Docente WHERE correo = ?";
+
+            try (Connection connection = conn.establecerConexion();
+                 PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+                stmt.setString(1, correo);
+                ResultSet rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                    docenteID = rs.getInt("docID");
+                }
+
+            } catch (SQLException e) {
+                System.out.println("❌ Error al obtener ID del docente: " + e.getMessage());
+            }
+
+            return docenteID; // Devuelve -1 si no encuentra el docente o hay error
+        }
+
 
 }
     

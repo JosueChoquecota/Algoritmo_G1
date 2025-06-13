@@ -14,11 +14,12 @@ public class SesionClase {
     private String ciclo;
     private List<SesionDetalle> detalles;
     private int unidad;
+    private String horario;
 
     public SesionClase() {
     }
 
-    public SesionClase(int sesID, Curso curso, LocalDate fecha, int semana, String tema, String ciclo, List<SesionDetalle> detalles, int unidad) {
+    public SesionClase(int sesID, Curso curso, LocalDate fecha, int semana, String tema, String ciclo, List<SesionDetalle> detalles, int unidad, String horario) {
         this.sesID = sesID;
         this.curso = curso;
         this.fecha = fecha;
@@ -27,6 +28,7 @@ public class SesionClase {
         this.ciclo = ciclo;
         this.detalles = detalles;
         this.unidad = unidad;
+        this.horario = horario;
     }
 
     public int getSesID() {
@@ -92,6 +94,16 @@ public class SesionClase {
     public void setUnidad(int unidad) {
         this.unidad = unidad;
     }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+
+   
 
    
     

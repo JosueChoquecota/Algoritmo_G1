@@ -74,7 +74,7 @@ public class EstudianteDAO {
         }
     }    
    
- public List<Estudiante> listarEstudiantesPorCurso(int cursoID) {
+    public List<Estudiante> listarEstudiantesPorCurso(int cursoID) {
     List<Estudiante> lista = new ArrayList<>();
     String sql = """
         SELECT e.estID, e.nombre

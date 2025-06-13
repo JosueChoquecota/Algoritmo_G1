@@ -53,9 +53,8 @@ public class ParticipacionDAO {
         return false;
     }
 }
-
-
-    public List<Participacion> obtenerParticipacionesPorEstudiante(int estID) {
+   
+   public List<Participacion> obtenerParticipacionesPorEstudiante(int estID) {
     List<Participacion> lista = new ArrayList<>();
     String sql = "SELECT p.partID, p.tipo, p.puntaje, p.observacion, p.fecha, p.sesID " +
                  "FROM Participacion p WHERE p.estudianteID = ?";
@@ -72,7 +71,6 @@ public class ParticipacionDAO {
             p.setObservacion(rs.getString("observacion"));
             p.setFecha(rs.getDate("fecha").toLocalDate());
 
-            // Solo seteamos el ID de la sesión para referencia rápida
             SesionClase sesion = new SesionClase();
             sesion.setSesID(rs.getInt("sesID"));
             p.setSesion(sesion);
@@ -84,8 +82,5 @@ public class ParticipacionDAO {
     }
     return lista;
 }
-    
-    
-    
-    
+
 }

@@ -5,10 +5,19 @@
 package src.view.participaciones;
 
 import java.awt.BorderLayout;
+import java.time.LocalDate;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import servicio.ParticipacionesService;
+import src.Controller.ParticipacionController;
+import src.dao.ParticipacionDAO;
 import src.model.Curso;
 import src.model.Docente;
 import src.model.Estudiante;
+import src.model.Participacion;
+import src.model.SesionClase;
+import src.model.SesionDetalle;
+import src.util.ConexionBD;
 
 /**
  *
@@ -20,12 +29,14 @@ public class PanelParticipacionEstudiante extends javax.swing.JPanel {
     private Docente docente;
     private Curso curso;
     private Estudiante estudiante;
+    private int sesionID;
     
     
-    public PanelParticipacionEstudiante(Estudiante estudiante, Curso curso, Docente docente, JPanel panelDashboard) {
+    public PanelParticipacionEstudiante(Estudiante estudiante, Curso curso, Docente docente,int sesionID, JPanel panelDashboard) {
         this.estudiante = estudiante;
         this.curso = curso;
         this.docente = docente;
+        this.sesionID = sesionID;
         this.panelDashboard = panelDashboard;
         initComponents();
         
@@ -193,8 +204,38 @@ public class PanelParticipacionEstudiante extends javax.swing.JPanel {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
+       ParticipacionDAO participacionDAO = new ParticipacionDAO(new ConexionBD());
+       ParticipacionesService service = new ParticipacionesService(participacionDAO);
+       ParticipacionController controller = new ParticipacionController(service, participacionDAO);
+        System.out.println("Docente: " + docente); // Verifica si es null
 
-        
+       // ✅ Obtener los valores correctamente
+       int puntos = Integer.parseInt(boxPuntos.getSelectedItem().toString()); 
+       String aporte = boxAporte.getSelectedItem().toString(); 
+       String observacion = txtArea.getText();
+
+       Participacion participacion = new Participacion();
+       participacion.setPuntaje(puntos);
+       participacion.setTipo(aporte);
+       participacion.setObservacion(observacion);
+       participacion.setFecha(LocalDate.now());
+
+       participacion.setEstudiante(estudiante);
+       participacion.setDocente(docente);
+       SesionClase sesion = new SesionClase();
+       System.out.println("Estudiante: " + estudiante);
+System.out.println("Estudiante ID: " + estudiante.getEstID());
+       sesion.setSesID(sesionID);
+       participacion.setSesion(sesion);
+
+       boolean exito = controller.insertarParticipacion(participacion);
+
+       if (exito) {
+           JOptionPane.showMessageDialog(null, "✅ Participación asignada correctamente");
+       } else {
+           JOptionPane.showMessageDialog(null, "❌ Error al asignar participación");
+       }
+
         
         
     }//GEN-LAST:event_btnAsignarActionPerformed

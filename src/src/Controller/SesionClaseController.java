@@ -24,12 +24,12 @@ import src.model.Curso;
             this.service = new SesionClaseService(sesionDAO, detalleDAO);
         }
 
-        public void generarSesiones(Curso curso, int semanas, boolean incluirTeorica, Integer docenteTeoricaID, int horasTeorica, boolean incluirPractica, Integer docentePracticaID, int horasPractica, int sesionesPorSemana) {
+        public void generarSesiones(Curso curso, int semanas, boolean incluirTeorica, Integer docenteTeoricaID, int horasTeorica, boolean incluirPractica, Integer docentePracticaID, int horasPractica, int sesionesPorSemana, String horarioTeorico, String horarioPractico) {
             service.generarSesionesConDetalles(
                 curso, semanas,
                 incluirTeorica, docenteTeoricaID, horasTeorica,
                 incluirPractica, docentePracticaID, horasPractica,
-                sesionesPorSemana
+                sesionesPorSemana, horarioTeorico, horarioPractico
             );
         }
 

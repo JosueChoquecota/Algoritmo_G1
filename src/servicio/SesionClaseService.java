@@ -31,7 +31,9 @@ public class SesionClaseService {
     boolean incluirPractica,
     Integer docentePracticaID,
     int horasPractica,
-    int sesionesPorSemana // 👈 nuevo parámetro
+    int sesionesPorSemana, // 👈 nuevo parámetro
+    String horarioTeorico,   // ✅ NUEVO
+    String horarioPractico
 ) {
     LocalDate fecha1 = curso.getFechaInicio(); // primera sesión base
     LocalDate fecha2 = curso.getFechaFin();    // segunda sesión base
@@ -51,7 +53,7 @@ public class SesionClaseService {
             sesion.setTema("Semana " + semana + " - " + (incluirTeorica ? "Teórica" : "Única"));
             sesion.setCiclo(ciclo);
             sesion.setUnidad(unidad);
-
+            sesion.setHorario(horarioTeorico); 
             if (sesionDAO.insertarSesion(sesion)) {
                 SesionDetalle detalle = new SesionDetalle();
                 detalle.setTipo(incluirTeorica ? "teórica" : (incluirPractica ? "práctica" : "única"));
@@ -80,6 +82,8 @@ public class SesionClaseService {
             sesion.setTema("Semana " + semana + " - Práctica");
             sesion.setCiclo(ciclo);
             sesion.setUnidad(unidad);
+            sesion.setHorario(horarioPractico);
+
 
             if (sesionDAO.insertarSesion(sesion)) {
                 SesionDetalle detalle = new SesionDetalle();

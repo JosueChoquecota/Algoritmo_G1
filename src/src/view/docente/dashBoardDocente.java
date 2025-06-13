@@ -4,8 +4,10 @@
  */
 package src.view.docente;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 import src.model.Docente;
 import src.view.registrocurso.panelCursosDocente;
 
@@ -19,23 +21,20 @@ public class dashBoardDocente extends javax.swing.JFrame {
     private panelCursosDocente panelCursos;
 
     public dashBoardDocente(Docente docente) {
+       this.docente = docente;
         initComponents();
-         setTitle("Panel del docente");
+        setTitle("Panel del docente");
 
         String nombreCompleto = docente.getNombre() + " " + docente.getApellido();
-        javax.swing.JOptionPane.showMessageDialog(this, "Bienvenido, profesor " + nombreCompleto);
-        System.out.println("Hola" + nombreCompleto);
-        
+        JOptionPane.showMessageDialog(this, "Bienvenido, profesor " + nombreCompleto);
+
+        panelDashboard.setLayout(new BorderLayout());
+
         panelCursos = new panelCursosDocente(docente, panelDashboard);
-        panelCursos.setVisible(true); 
-        panelDashboard.setLayout(new java.awt.BorderLayout()); // <- por si no tiene layout
-        panelDashboard.add(panelCursos, java.awt.BorderLayout.CENTER);
-        panelCursos.setVisible(false);
+        panelDashboard.add(panelCursos, BorderLayout.CENTER);
+        panelCursos.setVisible(true);
     }
 
-    public dashBoardDocente() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -119,6 +118,7 @@ public class dashBoardDocente extends javax.swing.JFrame {
         );
 
         panelDashboard.setBackground(new java.awt.Color(204, 204, 204));
+        panelDashboard.setPreferredSize(new java.awt.Dimension(635, 494));
 
         javax.swing.GroupLayout panelDashboardLayout = new javax.swing.GroupLayout(panelDashboard);
         panelDashboard.setLayout(panelDashboardLayout);
@@ -128,7 +128,7 @@ public class dashBoardDocente extends javax.swing.JFrame {
         );
         panelDashboardLayout.setVerticalGroup(
             panelDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
+            .addGap(0, 494, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -139,7 +139,7 @@ public class dashBoardDocente extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,7 +158,7 @@ public class dashBoardDocente extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();

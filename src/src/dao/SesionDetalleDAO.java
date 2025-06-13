@@ -10,6 +10,7 @@ import src.util.ConexionBD;
 import java.sql.SQLException;
 import java.sql.PreparedStatement; 
 import java.sql.Statement;
+import java.sql.ResultSet;
 
 /**
  *

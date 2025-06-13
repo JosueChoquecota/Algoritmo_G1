@@ -17,6 +17,7 @@ import src.model.Docente;
 import src.model.Estudiante;
 import src.model.EstudianteCurso;
 import src.model.Participacion;
+import src.model.SesionDetalle;
 
 
 public class EstudianteCursoDAO {
@@ -25,7 +26,7 @@ public class EstudianteCursoDAO {
     public EstudianteCursoDAO(ConexionBD conn) {
         this.conn = conn;
     }
-    
+    //REQMS-009: Registrar estudiante a curso
     public boolean inscribirEstudianteACurso(int estID, int cursoID, int docID) {
         String sql = "INSERT INTO EstudianteCurso (estID, cursoID, docID) VALUES (?, ?,?)";
 
@@ -41,52 +42,47 @@ public class EstudianteCursoDAO {
             return false;
         }
     }
-   
     
-public List<EstudianteCurso> obtenerEstudiantesPorSesion(int sesionID) {
-    List<EstudianteCurso> lista = new ArrayList<>();
-    System.out.println("Sesión ID: " + sesionID);
+    //REQMS-013: Visualizar participaciones filtradas por clase, curso o tipo de sesión
+    public List<EstudianteCurso> obtenerEstudiantesPorSesion(int sesionID) {
+        List<EstudianteCurso> lista = new ArrayList<>();
+        System.out.println("Sesión ID: " + sesionID);
 
-    String sql = "{CALL ObtenerEstudiantesPorSesion(?)}";
+        String sql = "{CALL ObtenerEstudiantesPorSesion(?)}";
 
-    try (Connection connection = conn.establecerConexion();
-         CallableStatement stmt = connection.prepareCall(sql)) {
+        try (Connection connection = conn.establecerConexion();
+             CallableStatement stmt = connection.prepareCall(sql)) {
 
-        stmt.setInt(1, sesionID);
+            stmt.setInt(1, sesionID);
 
-        ResultSet rs = stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
 
-        while (rs.next()) {
-            Estudiante estudiante = new Estudiante();
-            estudiante.setNombre(rs.getString("nombre"));
-            estudiante.setApellido(rs.getString("apellido"));
-            estudiante.setCarrera(rs.getString("carrera"));
-            estudiante.setCorreo(rs.getString("correo"));
-            estudiante.setCodEst(rs.getString("codEst"));
+            while (rs.next()) {
+                Estudiante estudiante = new Estudiante();
+                estudiante.setEstID(rs.getInt("estID")); // ✅ NUEVO
+                estudiante.setNombre(rs.getString("nombre"));
+                estudiante.setApellido(rs.getString("apellido"));
+                estudiante.setCarrera(rs.getString("carrera"));
+                estudiante.setCorreo(rs.getString("correo"));
+                estudiante.setCodEst(rs.getString("codEst"));
 
-            Curso curso = new Curso();
-            curso.setCursoNombre(rs.getString("curso_nombre"));
+                Curso curso = new Curso();
 
-            EstudianteCurso ec = new EstudianteCurso();
-            ec.setEstudiante(estudiante);
-            ec.setCurso(curso);
-            ec.setFechaInscripcion(rs.getDate("fechaInscripcion").toLocalDate());
-            ec.setEstado(rs.getString("estado"));
-            ec.setParticipacionTotal(rs.getInt("participacionTotal"));
-            ec.setSesionID(sesionID);
+                EstudianteCurso ec = new EstudianteCurso();
+                ec.setEstudiante(estudiante);
+                ec.setCurso(curso);
+                ec.setFechaInscripcion(rs.getDate("fechaInscripcion").toLocalDate());
+                ec.setEstado(rs.getString("estado"));
+                ec.setParticipacionTotal(rs.getInt("participacionTotal"));
+                ec.setSesionID(sesionID);
 
-            lista.add(ec);
+                lista.add(ec);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("❌ Error al obtener estudiantes por sesión: " + ex.getMessage());
         }
 
-    } catch (SQLException ex) {
-        System.out.println("❌ Error al obtener estudiantes por sesión: " + ex.getMessage());
+        return lista;
     }
-
-    return lista;
-}
-
-
-
-    
-
 }

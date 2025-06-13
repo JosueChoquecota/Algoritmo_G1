@@ -12,6 +12,7 @@ import src.model.Curso;
 import src.model.Docente;
 import src.model.Estudiante;
 import src.model.EstudianteCurso;
+import src.model.SesionDetalle;
 import src.util.ConexionBD;
 import src.view.registrocurso.panelCursosDocente;
 
@@ -22,21 +23,21 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
     private javax.swing.JPanel panelDashboard;
     private Docente docente;
     private int cursoID;
-    private int docenteID;
     private int sesionID;
-    public PanelEstudianteCurso(int cursoID, int docenteID, int sesionID, JPanel panelDashboard) {
+    
+    public PanelEstudianteCurso(int cursoID, Docente docente, int sesionID, JPanel panelDashboard) {
         this.cursoID = cursoID;
-        this.docenteID = docenteID;
+        this.docente = docente;
         this.sesionID = sesionID;
         this.panelDashboard = panelDashboard;
         initComponents();
         
         modelo = (DefaultTableModel) TablaEstudiantes.getModel();
-        cargarDatos(cursoID, docenteID);
+        cargarDatos(cursoID, docente);
 
     }
     
-     public void cargarDatos(int cursoID, int docenteID) {
+     public void cargarDatos(int cursoID, Docente docente) {
         try {
             modelo.setRowCount(0);
             EstudianteCursoController controller = new EstudianteCursoController(new EstudianteCursoDAO(new ConexionBD()));
@@ -44,6 +45,7 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
 
             for (EstudianteCurso ec : lista) {
                 modelo.addRow(new Object[]{
+                    ec.getEstudiante().getEstID(),
                     ec.getEstudiante().getNombre(),
                     ec.getEstudiante().getApellido(),
                     ec.getEstudiante().getCarrera(),
@@ -51,7 +53,6 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
                     ec.getEstudiante().getCodEst(),
                     ec.getFechaInscripcion(),  
                     ec.getEstado(),
-                    ec.getCurso().getCursoNombre(),
                     ec.getParticipacionTotal()
                 });
             }
@@ -59,25 +60,26 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "❌ Error al cargar datos: " + e.getMessage());
         }
     }
-    private Estudiante obtenerEstudianteSeleccionado() {
+        private Estudiante obtenerEstudianteSeleccionado() {
             int fila = TablaEstudiantes.getSelectedRow();
             if (fila == -1) return null;
 
             DefaultTableModel modelo = (DefaultTableModel) TablaEstudiantes.getModel();
             Estudiante est = new Estudiante();
-            est.setNombre((String) modelo.getValueAt(fila, 0));
-            est.setApellido((String) modelo.getValueAt(fila, 1));
-            est.setCodEst((String) modelo.getValueAt(fila, 4));
+            est.setEstID((int) modelo.getValueAt(fila, 0)); 
+            est.setNombre(String.valueOf(modelo.getValueAt(fila, 1)));
+            est.setApellido(String.valueOf(modelo.getValueAt(fila, 2)));
+            est.setCodEst(String.valueOf(modelo.getValueAt(fila, 5))); 
             return est;
         }
 
-    private Curso obtenerCursoSeleccionado() {
+        private Curso obtenerCursoSeleccionado() {
             int fila = TablaEstudiantes.getSelectedRow();
             if (fila == -1) return null;
 
             DefaultTableModel modelo = (DefaultTableModel) TablaEstudiantes.getModel();
             Curso curso = new Curso();
-            curso.setCursoNombre((String) modelo.getValueAt(fila, 7));
+            curso.setCursoNombre(String.valueOf(modelo.getValueAt(fila, 8)));
             return curso;
         }
     @SuppressWarnings("unchecked")
@@ -123,11 +125,11 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Apellido", "Carrera", "Correo", "Codigo", "FechaInscripcion", "Estado", "Curso", "PuntosTotales"
+                "EstID", "Nombre", "Apellido", "Carrera", "Correo", "Codigo", "FechaInscripcion", "Estado", "PuntosTotales"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -222,7 +224,7 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
         Estudiante estudiante = obtenerEstudianteSeleccionado();
         Curso curso = obtenerCursoSeleccionado();
 
-        PanelParticipacionEstudiante panelParticipar = new PanelParticipacionEstudiante(estudiante, curso, docente, panelDashboard);
+        PanelParticipacionEstudiante panelParticipar = new PanelParticipacionEstudiante(estudiante, curso, docente, sesionID, panelDashboard);
         panelParticipar.setSize(panelDashboard.getWidth(), panelDashboard.getHeight());
 
         panelDashboard.removeAll();
@@ -233,7 +235,7 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
 
-        panelCursosDocente panelCursos = new panelCursosDocente(docente,panelDashboard);
+        PanelInfoSesionClase panelCursos = new PanelInfoSesionClase(docente, cursoID, panelDashboard);
         panelCursos.setSize(panelDashboard.getWidth(), panelDashboard.getHeight());
 
         panelDashboard.removeAll();
@@ -241,7 +243,7 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
         panelDashboard.revalidate();
         panelDashboard.repaint();
 
-        panelCursos.cargarCursos();
+        panelCursos.cargarSesiones();
         
     }//GEN-LAST:event_btnVolverActionPerformed
 

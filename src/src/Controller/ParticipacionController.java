@@ -19,14 +19,15 @@ public class ParticipacionController {
     private ParticipacionDAO participacion;
     
     public ParticipacionController(ParticipacionesService service, ParticipacionDAO dao) {
-    this.participacionesService = service;
-    this.participacion = dao;
-}
-
+        this.participacionesService = service;
+        this.participacion = dao;
+    }
+    
     public List<Participacion> listarParticipacionesPorEstudiante(int estID) {
         return participacionesService.obtenerParticipacionesPorEstudiante(estID);
     }
-
+    
+    // REQMS-010: Insertar participación
     public boolean insertarParticipacion(Participacion participacion) {
         return participacionesService.insertarParticipacion(participacion);
     }

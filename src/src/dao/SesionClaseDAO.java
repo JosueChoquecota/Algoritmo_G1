@@ -25,9 +25,10 @@ public class SesionClaseDAO {
     public SesionClaseDAO(ConexionBD conn) {
         this.conn = conn;
     }
-    
+    //REQMS-020: Registrar sesión de clase
+    //REQMS-019: Generar sesiones por semana 
     public boolean insertarSesion(SesionClase sesion) {
-        String sql = "INSERT INTO SesionClase (cursoID, fecha, tema, semana, ciclo, unidad) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO SesionClase (cursoID, fecha, tema, semana, ciclo, unidad, horario) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = conn.establecerConexion();
              PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -37,6 +38,7 @@ public class SesionClaseDAO {
             stmt.setInt(4, sesion.getSemana());
             stmt.setString(5, sesion.getCiclo());
             stmt.setInt(6, sesion.getUnidad());
+            stmt.setString(7, sesion.getHorario());
 
             stmt.executeUpdate();
 
@@ -51,6 +53,7 @@ public class SesionClaseDAO {
             return false;
         }
     }
+    
     public List<Object[]> listarSesionesConDetallesPorCursoYDocente(int cursoID, int docenteID) {
         List<Object[]> lista = new ArrayList<>();
 
