@@ -22,21 +22,26 @@ public class MainCrearCursoYGenerarSesiones {
         SesionDetalleDAO detalleDAO = new SesionDetalleDAO(conexion);
         SesionClaseController controller = new SesionClaseController(sesionDAO, detalleDAO);
 
+        int ano = Integer.parseInt("2025");
+        int mes = Integer.parseInt("05");
+        int dia = Integer.parseInt("12");
+        
+        
         Curso curso = new Curso();
-        curso.setCursoNombre("Programación Avanzada");
-        curso.setCiclo("2025-2");
-        curso.setModalidad("Presencial");
-        curso.setCreditos(4);
+        curso.setCursoNombre("Programación Avanzada"); //<---
+        curso.setCiclo("2025-2"); //<---
+        curso.setModalidad("Presencial"); //<---
+        curso.setCreditos(4); //<---
         curso.setCursoCodigo("TEMPORAL"); // será reemplazado internamente
-        curso.setFechaInicio(LocalDate.of(2025, 8, 5));
-        curso.setHorario("Lunes 13:00, Viernes 16:00");
+        curso.setFechaInicio(LocalDate.of(ano, mes, dia)); //<---
+        curso.setHorario("Lunes 13:00 - 15:00"); //<---
 
         
         int semanas = 8;
 
         boolean insertado = cursoDAO.insertarCurso(curso, semanas);
         
-        String horarioUno = "Lunes 13:00";
+        String horarioUno = "Lunes 13:00 - 15:00";
         String horarioDos = "Viernes 16:00";
         if (insertado) {
             controller.generarSesiones(
@@ -45,12 +50,12 @@ public class MainCrearCursoYGenerarSesiones {
                 true,        // incluir teórica
                 5001,        // ID docente teórica
                 2,           // horas teórica
-                true,        // incluir práctica
-                5001,        // ID docente práctica
-                3,           // horas práctica
-                2,           // sesiones por semana
+                false,        // incluir práctica
+                null,        // ID docente práctica
+                0,           // horas práctica
+                1,           // sesiones por semana
                 horarioUno,
-                horarioDos// horario
+                null// horario
             );
         } else {
             System.out.println("❌ No se pudo registrar el curso.");
