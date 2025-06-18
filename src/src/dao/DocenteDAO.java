@@ -111,10 +111,34 @@ public class DocenteDAO {
                 System.out.println("❌ Error al obtener ID del docente: " + e.getMessage());
             }
 
-            return docenteID; // Devuelve -1 si no encuentra el docente o hay error
+            return docenteID;
         }
 
-
+    public List<Docente> listaDeDocenteParaInsertarCurso() {
+        List<Docente> lista = new ArrayList<>();
+        String sql = "SELECT docID, Nombre, apellido, especialidad FROM Docente";
+        
+        try(Connection connection = conn.establecerConexion();
+            PreparedStatement stmt = connection.prepareStatement(sql)) {
+            
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                    Docente docente = new Docente();
+                    docente.setDocID(rs.getInt("docID"));
+                    docente.setNombre(rs.getString("Nombre"));
+                    docente.setApellido(rs.getString("apellido"));
+                    docente.setEspecialidad(rs.getString("especialidad"));
+        
+                lista.add(docente);
+                
+            }
+            }catch (SQLException e) {
+                System.out.println("Fallo al mostrar docentes");
+            }
+            return lista;
+        }
+ 
+   
 }
     
 

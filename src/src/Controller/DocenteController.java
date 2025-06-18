@@ -33,4 +33,7 @@ public class DocenteController {
     public int obtenerDocenteIDPorCorreo(String correo) {
         return docenteDAO.obtenerDocenteIDPorCorreo(correo);
     }
+    public List<Docente> listaDeDocenteParaInsertarCurso() {
+        return docenteDAO.listaDeDocenteParaInsertarCurso();
+    }
 }

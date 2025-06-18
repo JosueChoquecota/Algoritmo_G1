@@ -31,18 +31,18 @@ public class SesionClaseService {
     boolean incluirPractica,
     Integer docentePracticaID,
     int horasPractica,
-    int sesionesPorSemana, // 👈 nuevo parámetro
-    String horarioTeorico,   // ✅ NUEVO
+    int sesionesPorSemana,
+    String horarioTeorico,   
     String horarioPractico
 ) {
-    LocalDate fecha1 = curso.getFechaInicio(); // primera sesión base
-    LocalDate fecha2 = curso.getFechaFin();    // segunda sesión base
+    LocalDate fecha1 = curso.getFechaInicio(); 
+    LocalDate fecha2 = curso.getFechaFin();   
     String ciclo = curso.getCiclo();
 
     for (int semana = 1; semana <= semanas; semana++) {
         int unidad = ((semana - 1) / 4) + 1;
 
-        // ✅ Primera sesión de la semana (si teórica o práctica)
+        // PRIMERA SESION
         if (incluirTeorica || sesionesPorSemana == 1) {
             LocalDate fechaSesion = fecha1.plusWeeks(semana - 1);
 
@@ -71,7 +71,7 @@ public class SesionClaseService {
             }
         }
 
-        // ✅ Segunda sesión de la semana (solo si se quieren 2 sesiones y ambas están activadas)
+        // SEGUNDA SESION
         if (sesionesPorSemana == 2 && incluirTeorica && incluirPractica) {
             LocalDate fechaSesion = fecha2.plusWeeks(semana - 1);
 
@@ -102,7 +102,7 @@ public class SesionClaseService {
         }
     }
 
-    System.out.println("=== ✅ Generación de sesiones finalizada ===");
+    System.out.println(" Generación de sesiones finalizada");
 }
 
 }

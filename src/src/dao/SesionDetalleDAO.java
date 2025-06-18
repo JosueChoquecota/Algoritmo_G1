@@ -26,7 +26,6 @@ public class SesionDetalleDAO {
     
    public boolean registrarDetalleSesion(int sesID, SesionDetalle detalle) {
         String sql = "INSERT INTO SesionDetalle (sesID, tipo, duracionHoras, docenteID) VALUES (?, ?, ?, ?)";
-
         try (Connection connection = conn.establecerConexion();
              PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -37,9 +36,8 @@ public class SesionDetalleDAO {
             if (detalle.getDocente() != null) {
                 stmt.setInt(4, detalle.getDocente().getDocID());
             } else {
-                stmt.setNull(4, java.sql.Types.INTEGER); // soporte para docente null si es necesario
+                stmt.setNull(4, java.sql.Types.INTEGER); 
             }
-
             int filas = stmt.executeUpdate();
             return filas > 0;
 

@@ -45,7 +45,6 @@ public class panelCursosDocente extends javax.swing.JPanel {
             System.out.println("❌ Error: docente es null");
             return;
         }
-        int id = docente.getDocID(); 
         CursoController cursoController = new CursoController(new CursoDAO(new ConexionBD()));  
         List<Curso> cursos = cursoController.mostrarCursosDocente(docente.getDocID());
         DefaultTableModel model = (DefaultTableModel) TablaCursos.getModel();
@@ -188,11 +187,11 @@ public class panelCursosDocente extends javax.swing.JPanel {
         }
 
         DefaultTableModel modelo = (DefaultTableModel) TablaCursos.getModel();
-        String codigoCurso = modelo.getValueAt(filaSeleccionada, 1).toString(); // "C105" por ejemplo
+        String codigoCurso = modelo.getValueAt(filaSeleccionada, 1).toString(); 
 
-        int cursoID = curso.obtenerCursoIDPorCodigo(codigoCurso); // Este método debe estar en tu DAO
+        int cursoID = curso.obtenerCursoIDPorCodigo(codigoCurso); 
 
-        // Redirigir al panel que muestra las sesiones del curso
+   
         PanelInfoSesionClase panelSesion = new PanelInfoSesionClase(docente, cursoID, panelDashboard);
         panelSesion.setSize(panelDashboard.getWidth(), panelDashboard.getHeight());
 

@@ -6,6 +6,7 @@ import src.util.ConexionBD;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.CallableStatement;
+import src.model.Curso;
 public class CursoService {
        private ConexionBD conn;
        
@@ -28,7 +29,9 @@ public class CursoService {
         } catch (SQLException e) {
             System.out.println("❌ Error generando código: " + e.getMessage());
         }
-
         return codigo;
     }
+    
+    
+    
 }

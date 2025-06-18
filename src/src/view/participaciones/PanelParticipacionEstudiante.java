@@ -207,9 +207,7 @@ public class PanelParticipacionEstudiante extends javax.swing.JPanel {
        ParticipacionDAO participacionDAO = new ParticipacionDAO(new ConexionBD());
        ParticipacionesService service = new ParticipacionesService(participacionDAO);
        ParticipacionController controller = new ParticipacionController(service, participacionDAO);
-        System.out.println("Docente: " + docente); // Verifica si es null
 
-       // ✅ Obtener los valores correctamente
        int puntos = Integer.parseInt(boxPuntos.getSelectedItem().toString()); 
        String aporte = boxAporte.getSelectedItem().toString(); 
        String observacion = txtArea.getText();
@@ -224,7 +222,7 @@ public class PanelParticipacionEstudiante extends javax.swing.JPanel {
        participacion.setDocente(docente);
        SesionClase sesion = new SesionClase();
        System.out.println("Estudiante: " + estudiante);
-System.out.println("Estudiante ID: " + estudiante.getEstID());
+       System.out.println("Estudiante ID: " + estudiante.getEstID());
        sesion.setSesID(sesionID);
        participacion.setSesion(sesion);
 

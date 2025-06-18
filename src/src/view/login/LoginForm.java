@@ -4,10 +4,14 @@
  */
 package src.view.login;
 
+import src.Controller.AdministradorController;
 import src.Controller.DocenteController;
+import src.dao.AdministradoDAO;
 import src.dao.DocenteDAO;
+import src.model.Administrador;
 import src.model.Docente;
 import src.util.ConexionBD;
+import src.view.Administrador.dashBoardAdministrador;
 import src.view.docente.dashBoardDocente;
 
 
@@ -156,21 +160,38 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void btnInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioSesionActionPerformed
 
-        ConexionBD conexion = new ConexionBD();
-            DocenteDAO docenteDAO = new DocenteDAO(conexion);
-            DocenteController docenteController = new DocenteController(docenteDAO);
-            String correo = Tcorreo.getText();
-            String contrasena = Tcontra.getText(); 
-            Docente docenteLogueado = docenteController.loginDocente(correo, contrasena);
-            
-            if (docenteLogueado != null) {
-            javax.swing.JOptionPane.showMessageDialog(this, "✅ Bienvenido al sistema de participación");
-            dashBoardDocente dashboard = new dashBoardDocente(docenteLogueado);
-            dashboard.setVisible(true);
+         ConexionBD conexion = new ConexionBD();
+
+        String correo = Tcorreo.getText();
+        String contrasena = Tcontra.getText(); 
+
+        if (correo.toLowerCase().endsWith("@admin.com")) {
+        AdministradoDAO adminDAO = new AdministradoDAO(conexion);
+        AdministradorController adminController = new AdministradorController(adminDAO);
+        Administrador adminLogueado = adminController.loginAdministrador(correo, contrasena);
+
+        if (adminLogueado != null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "✅ Bienvenido Administrador");
+            dashBoardAdministrador dashboardAdmin = new dashBoardAdministrador(adminLogueado);
+            dashboardAdmin.setVisible(true);
             this.dispose();
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "❌ Correo o contraseña incorrectos para administrador", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
 
         } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "❌ Correo o contraseña incorrectos", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            DocenteDAO docenteDAO = new DocenteDAO(conexion);
+            DocenteController docenteController = new DocenteController(docenteDAO);
+            Docente docenteLogueado = docenteController.loginDocente(correo, contrasena);
+
+            if (docenteLogueado != null) {
+                javax.swing.JOptionPane.showMessageDialog(this, "✅ Bienvenido Docente al sistema de participación");
+                dashBoardDocente dashboardDocente = new dashBoardDocente(docenteLogueado);
+                dashboardDocente.setVisible(true);
+                this.dispose();
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "❌ Correo o contraseña incorrectos", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnInicioSesionActionPerformed
 

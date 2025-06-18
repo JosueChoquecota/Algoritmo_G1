@@ -20,7 +20,7 @@ import src.model.Curso;
         private final SesionClaseDAO sesionDAO;
 
         public SesionClaseController(SesionClaseDAO sesionDAO, SesionDetalleDAO detalleDAO) {
-            this.sesionDAO = sesionDAO; // ✅ Aquí estaba el error (antes era null)
+            this.sesionDAO = sesionDAO; 
             this.service = new SesionClaseService(sesionDAO, detalleDAO);
         }
 

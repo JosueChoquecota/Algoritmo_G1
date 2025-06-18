@@ -14,9 +14,17 @@ public class Administrador {
     private String apellido;
     private String correo;
     private String contraseña;
+    private String especialidad;
+    private String telefono;
+    private String direccion;
+    private String codAdmin;
+    private java.time.LocalDate fechaNacimiento;
+    private String estado;
+    private java.time.LocalDate fechaRegistro;
 
     public Administrador() {
     }
+
 
     public int getAdminID() {
         return adminID;
@@ -57,4 +65,61 @@ public class Administrador {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
+
+    public String getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getCodAdmin() {
+        return codAdmin;
+    }
+
+    public void setCodAdmin(String codAdmin) {
+        this.codAdmin = codAdmin;
+    }
+
+    public java.time.LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(java.time.LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public java.time.LocalDate getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(java.time.LocalDate fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
 }
+

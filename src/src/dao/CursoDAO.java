@@ -32,7 +32,7 @@ public class CursoDAO {
         CursoValidacion validacion = new CursoValidacion(conn);
 
         if (validacion.existeCursoPorCodigo(curso.getCursoCodigo())) {
-            System.out.println("⚠️ Cuidado, ya existe este curso con el código.");
+            System.out.println("Ya existe este curso con el código.");
             return false;
         }
 

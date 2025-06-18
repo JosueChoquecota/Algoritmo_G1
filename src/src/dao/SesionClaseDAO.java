@@ -44,7 +44,7 @@ public class SesionClaseDAO {
 
             ResultSet rs = stmt.getGeneratedKeys();
             if (rs.next()) {
-                sesion.setSesID(rs.getInt(1)); // guardar el ID generado
+                sesion.setSesID(rs.getInt(1));
             }
 
             return true;
@@ -80,12 +80,12 @@ public class SesionClaseDAO {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Object[] fila = new Object[]{
-                    rs.getInt("sesID"),          // ✅ ID de sesión
-                    rs.getInt("unidad"),         // Unidad
-                    rs.getInt("semana"),         // Semana
-                    rs.getDate("fecha"),         // Fecha
-                    rs.getString("tipo"),        // Tipo de sesión
-                    rs.getInt("duracionHoras")   // Duración
+                    rs.getInt("sesID"),        
+                    rs.getInt("unidad"),         
+                    rs.getInt("semana"),        
+                    rs.getDate("fecha"),        
+                    rs.getString("tipo"),        
+                    rs.getInt("duracionHoras")   
                 };
                 lista.add(fila);
             }

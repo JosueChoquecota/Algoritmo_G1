@@ -26,7 +26,7 @@ public class dashBoardDocente extends javax.swing.JFrame {
         setTitle("Panel del docente");
 
         String nombreCompleto = docente.getNombre() + " " + docente.getApellido();
-        JOptionPane.showMessageDialog(this, "Bienvenido, profesor " + nombreCompleto);
+        JOptionPane.showMessageDialog(this, "Bienvenido, profesor: " + nombreCompleto);
 
         panelDashboard.setLayout(new BorderLayout());
 

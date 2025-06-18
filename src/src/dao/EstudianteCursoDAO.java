@@ -59,7 +59,7 @@ public class EstudianteCursoDAO {
 
             while (rs.next()) {
                 Estudiante estudiante = new Estudiante();
-                estudiante.setEstID(rs.getInt("estID")); // ✅ NUEVO
+                estudiante.setEstID(rs.getInt("estID")); 
                 estudiante.setNombre(rs.getString("nombre"));
                 estudiante.setApellido(rs.getString("apellido"));
                 estudiante.setCarrera(rs.getString("carrera"));

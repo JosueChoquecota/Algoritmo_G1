@@ -37,12 +37,13 @@ public class PanelInfoSesionClase extends javax.swing.JPanel {
 
     }
 
-   public void cargarSesiones() {
-     SesionClaseController controller = new SesionClaseController(
+    public void cargarSesiones() {
+        SesionClaseController controller = new SesionClaseController(
             new SesionClaseDAO(new ConexionBD()),
             new SesionDetalleDAO(new ConexionBD())
         );
-        List<Object[]> sesiones = controller.obtenerSesionesPorCursoYDocente(cursoID, docente.getDocID());
+        List<Object[]> sesiones = 
+        controller.obtenerSesionesPorCursoYDocente(cursoID, docente.getDocID());
 
         DefaultTableModel modelo = (DefaultTableModel) TablaSesiones.getModel();
         modelo.setRowCount(0);
@@ -50,11 +51,11 @@ public class PanelInfoSesionClase extends javax.swing.JPanel {
         for (Object[] fila : sesiones) {
             modelo.addRow(fila); // Esto ya contiene sesionID, unidad, semana, fecha, tipo, horas
         }
-   }
-   private int obtenerSesionIDDesdeTabla(int fila) {
-    DefaultTableModel modelo = (DefaultTableModel) TablaSesiones.getModel();
-    return Integer.parseInt(modelo.getValueAt(fila, 0).toString());
-}
+    }
+    private int obtenerSesionIDDesdeTabla(int fila) {
+        DefaultTableModel modelo = (DefaultTableModel) TablaSesiones.getModel();
+        return Integer.parseInt(modelo.getValueAt(fila, 0).toString());
+    }
 
     
     @SuppressWarnings("unchecked")
