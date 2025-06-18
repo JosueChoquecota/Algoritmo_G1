@@ -1,0 +1,17 @@
+CORREO ADMINISTRADOR ---
+
+luis.ramirez@admin.com
+
+CONTRASEÑA ADMINISTRADOR ---
+
+adminL123
+
+
+---------------------------
+CORREO DOCENTE ---
+
+JosueCristian@gmail.com
+
+CONTRASEÑA DOCENTE ---
+
+admin123

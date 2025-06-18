@@ -33,6 +33,11 @@ public class EstudianteDAO {
                System.out.println("❌ El DNI debe tener exactamente 8 dígitos numéricos.");
                return false;
            }
+        /*codigo marco*/
+        if (dniExiste(estudiante.getDni())) {
+            System.out.println(" DNI ya existe, no se inserta.");
+            return false;
+        }
         try {
             Connection connection = conn.establecerConexion();
 
@@ -98,6 +103,27 @@ public class EstudianteDAO {
 
     return lista;
 }
-
+/*CODIGO MARCO*/
+    public boolean dniExiste(String dni) {
+    String sql = "SELECT 1 FROM Estudiante WHERE dni = ?";
+        try (PreparedStatement stmt = conn.establecerConexion().prepareStatement(sql)) {
+            stmt.setString(1, dni);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (SQLException ex) {
+            System.out.println("Error comprobando DNI: " + ex.getMessage());
+            return true; 
+        }
+    }
+    public boolean correoExiste(String correo) {
+        String sql = "SELECT 1 FROM Estudiante WHERE correo = ?";
+        try (PreparedStatement stmt = conn.establecerConexion().prepareStatement(sql)) {
+            stmt.setString(1, correo);
+            return stmt.executeQuery().next(); 
+        } catch (SQLException e) {
+            System.out.println("Error comprobando correo: " + e.getMessage());
+            return true;       
+        }
+    }
     
 }
