@@ -16,8 +16,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import src.model.Curso;
 import src.model.Estudiante;
 import src.model.Participacion;
+import src.model.PuntajeTotalEstudiante;
 import src.model.SesionClase;
 import src.util.ParticipaciónValidacion;
 
@@ -26,7 +28,7 @@ import src.util.ParticipaciónValidacion;
  * @author ASUS
  */
 public class ParticipacionDAO {
-     private ConexionBD conn;
+    private ConexionBD conn;
 
     public ParticipacionDAO(ConexionBD conn) {
         this.conn = conn;
@@ -47,6 +49,8 @@ public class ParticipacionDAO {
         stmt.setDate(7, java.sql.Date.valueOf(participacion.getFecha()));
 
         int filas = stmt.executeUpdate();
+        
+
         return filas > 0;
     } catch (SQLException e) {
         System.out.println("❌ Error al insertar participación: " + e.getMessage());
@@ -83,4 +87,6 @@ public class ParticipacionDAO {
     return lista;
 }
 
+   
+   
 }

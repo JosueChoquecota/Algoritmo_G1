@@ -66,7 +66,7 @@ public class dashBoardAdministrador extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(0, 51, 102));
 
         btnCursos.setBackground(new java.awt.Color(0, 153, 153));
-        btnCursos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCursos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCursos.setForeground(new java.awt.Color(255, 255, 255));
         btnCursos.setText("Registrar Curso");
         btnCursos.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +76,7 @@ public class dashBoardAdministrador extends javax.swing.JFrame {
         });
 
         btnDocente.setBackground(new java.awt.Color(0, 153, 153));
-        btnDocente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnDocente.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnDocente.setForeground(new java.awt.Color(255, 255, 255));
         btnDocente.setText("Registrar Curso");
         btnDocente.addActionListener(new java.awt.event.ActionListener() {
@@ -86,7 +86,7 @@ public class dashBoardAdministrador extends javax.swing.JFrame {
         });
 
         btnAlumnos.setBackground(new java.awt.Color(0, 153, 153));
-        btnAlumnos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAlumnos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnAlumnos.setForeground(new java.awt.Color(255, 255, 255));
         btnAlumnos.setText("Registrar Alumno");
         btnAlumnos.addActionListener(new java.awt.event.ActionListener() {
@@ -106,7 +106,7 @@ public class dashBoardAdministrador extends javax.swing.JFrame {
         });
 
         btnAlumnos1.setBackground(new java.awt.Color(0, 153, 153));
-        btnAlumnos1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAlumnos1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnAlumnos1.setForeground(new java.awt.Color(255, 255, 255));
         btnAlumnos1.setText("Asignar Alumnos a Curso");
         btnAlumnos1.addActionListener(new java.awt.event.ActionListener() {
@@ -134,13 +134,13 @@ public class dashBoardAdministrador extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(btnCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
+                .addGap(40, 40, 40)
                 .addComponent(btnDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
+                .addGap(40, 40, 40)
                 .addComponent(btnAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(40, 40, 40)
                 .addComponent(btnAlumnos1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 264, Short.MAX_VALUE)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
         );
@@ -232,7 +232,6 @@ public class dashBoardAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAlumnos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlumnos1ActionPerformed
-
                 panelDashboardAdm.removeAll();
                 panelTablaAlumnos = new PanelTablaAlumnos();
                 panelDashboardAdm.add(panelTablaAlumnos, BorderLayout.CENTER);

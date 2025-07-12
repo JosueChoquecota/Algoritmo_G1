@@ -1,32 +1,28 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package src.model;
 
 import java.time.LocalDate;
 
-/**
- *
- * @author ASUS
- */
 public class Reprogramación {
     private int reproID;
     private SesionClase sesion;
     private LocalDate fechaAnterior;
     private LocalDate fechaNueva;
     private String motivo;
+    private String horario;
 
     public Reprogramación() {}
 
-    public Reprogramación(int reproID, SesionClase sesion, LocalDate fechaAnterior, LocalDate fechaNueva, String motivo) {
+    public Reprogramación(int reproID, SesionClase sesion, LocalDate fechaAnterior, LocalDate fechaNueva, String motivo, String horario) {
         this.reproID = reproID;
         this.sesion = sesion;
         this.fechaAnterior = fechaAnterior;
         this.fechaNueva = fechaNueva;
         this.motivo = motivo;
+        this.horario = horario;
     }
 
+    
+    
     public int getReproID() {
         return reproID;
     }
@@ -66,6 +62,16 @@ public class Reprogramación {
     public void setMotivo(String motivo) {
         this.motivo = motivo;
     }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+
+    
 
    
 

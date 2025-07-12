@@ -2,6 +2,7 @@
 package src.dao;
 
 
+import java.sql.CallableStatement;
 import src.util.ConexionBD;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -14,7 +15,10 @@ import java.util.Scanner;
 import servicio.CursoService;
 import servicio.DocenteService;
 import servicio.EstudianteService;
+import src.model.Curso;
+import src.model.Docente;
 import src.model.Estudiante;
+import src.model.EstudianteCurso;
 import src.util.EstudianteValidacion;
 
 
@@ -78,7 +82,52 @@ public class EstudianteDAO {
             return false;
         }
     }    
-   
+    
+    public List<EstudianteCurso> obtenerEstudiantesPorDocente(int DocenteID) {
+        List<EstudianteCurso> lista = new ArrayList<>();
+        System.out.println("Docente ID: " + DocenteID);
+
+        String sql = "{CALL ObtenerEstudiantesPorDocente(?)}";
+
+        try (Connection connection = conn.establecerConexion();
+             CallableStatement stmt = connection.prepareCall(sql)) {
+
+            stmt.setInt(1, DocenteID);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                 Estudiante estudiante = new Estudiante();
+                estudiante.setEstID(rs.getInt("estID")); 
+                estudiante.setCodEst(rs.getString("codEst"));
+                estudiante.setNombre(rs.getString("nombre"));
+                estudiante.setApellido(rs.getString("apellido"));
+                estudiante.setCarrera(rs.getString("carrera"));
+                estudiante.setCorreo(rs.getString("correo"));
+
+                Curso curso = new Curso();
+                curso.setCursoNombre(rs.getString("cursoNombre"));
+
+                EstudianteCurso ec = new EstudianteCurso();
+                ec.setFechaInscripcion(rs.getDate("fechaInscripcion").toLocalDate());
+                ec.setEstado(rs.getString("estado"));
+                ec.setParticipacionTotal(rs.getInt("participacionTotal"));
+                
+                ec.setEstudiante(estudiante); // ✅ Esto faltaba
+                ec.setCurso(curso);           // ✅ Esto faltaba
+
+                lista.add(ec);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener estudiantes por sesión: " + ex.getMessage());
+        }
+
+        return lista;
+    }
+
+
+    
     public List<Estudiante> listarEstudiantesPorCurso(int cursoID) {
     List<Estudiante> lista = new ArrayList<>();
     String sql = """
@@ -125,5 +174,7 @@ public class EstudianteDAO {
             return true;       
         }
     }
+    
+ 
     
 }

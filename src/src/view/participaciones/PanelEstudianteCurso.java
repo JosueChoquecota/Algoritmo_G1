@@ -2,16 +2,21 @@ package src.view.participaciones;
 
 import java.awt.BorderLayout;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import src.Controller.EstudianteCursoController;
+import src.Controller.GrupoActividadController;
 import src.dao.EstudianteCursoDAO;
+import src.dao.GrupoActividadDAO;
 import src.model.Curso;
 import src.model.Docente;
 import src.model.Estudiante;
 import src.model.EstudianteCurso;
+import src.model.GrupoActividad;
+import src.model.SesionClase;
 import src.model.SesionDetalle;
 import src.util.ConexionBD;
 import src.view.registrocurso.panelCursosDocente;
@@ -24,6 +29,7 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
     private Docente docente;
     private int cursoID;
     private int sesionID;
+    private panelCalculoPuntajeUnidad panelCalculo;
     
     public PanelEstudianteCurso(int cursoID, Docente docente, int sesionID, JPanel panelDashboard) {
         this.cursoID = cursoID;
@@ -34,7 +40,6 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
         
         modelo = (DefaultTableModel) TablaEstudiantes.getModel();
         cargarDatos(cursoID, docente);
-
     }
     
      public void cargarDatos(int cursoID, Docente docente) {
@@ -72,6 +77,24 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
             est.setCodEst(String.valueOf(modelo.getValueAt(fila, 5))); 
             return est;
         }
+        
+        private List<Estudiante> obtenerEstudiantesSeleccionados() {
+            int[] filasSeleccionadas = TablaEstudiantes.getSelectedRows();
+            List<Estudiante> seleccionados = new ArrayList<>();
+
+            DefaultTableModel modelo = (DefaultTableModel) TablaEstudiantes.getModel();
+
+            for (int fila : filasSeleccionadas) {
+                Estudiante est = new Estudiante();
+                est.setEstID(Integer.parseInt(modelo.getValueAt(fila, 0).toString()));
+                est.setNombre(modelo.getValueAt(fila, 1).toString());
+                est.setApellido(modelo.getValueAt(fila, 2).toString());
+                // Puedes mapear más campos si lo deseas
+                seleccionados.add(est);
+            }
+
+            return seleccionados;
+        }
 
         private Curso obtenerCursoSeleccionado() {
             int fila = TablaEstudiantes.getSelectedRow();
@@ -82,6 +105,19 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
             curso.setCursoNombre(String.valueOf(modelo.getValueAt(fila, 8)));
             return curso;
         }
+        
+        private void cargarTablaGrupos() {
+            DefaultTableModel modelo = (DefaultTableModel) GruposEstudiantes.getModel();
+            modelo.setRowCount(0); // Limpiar tabla
+
+            GrupoActividadDAO dao = new GrupoActividadDAO(new ConexionBD());
+            List<Object[]> grupos = dao.listarGruposEstudiantes(sesionID); // sesión actual
+
+            for (Object[] fila : grupos) {
+                modelo.addRow(fila);
+            }
+        }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -91,8 +127,15 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
         TablaEstudiantes = new javax.swing.JTable();
         btnSeleccionar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         btnVolver = new javax.swing.JButton();
+        btnPuntajeUnidad = new javax.swing.JButton();
+        btnCrearGrupos = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        GruposEstudiantes = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        comboGrupo = new javax.swing.JComboBox<>();
+        btnEliminar = new javax.swing.JButton();
 
         PanelCursos.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -138,7 +181,7 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(TablaEstudiantes);
 
-        btnSeleccionar.setBackground(new java.awt.Color(255, 153, 153));
+        btnSeleccionar.setBackground(new java.awt.Color(255, 51, 102));
         btnSeleccionar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
         btnSeleccionar.setText("Seleccionar");
@@ -150,19 +193,76 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("Estudiantes por Curso:");
+        jLabel7.setText("Estudiantes:");
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Aqui va todos los cursos del docente para seleccionar al que le corresponde");
-
-        btnVolver.setBackground(new java.awt.Color(153, 153, 255));
+        btnVolver.setBackground(new java.awt.Color(0, 204, 204));
         btnVolver.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnVolver.setForeground(new java.awt.Color(255, 255, 255));
         btnVolver.setText("Volver");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVolverActionPerformed(evt);
+            }
+        });
+
+        btnPuntajeUnidad.setBackground(new java.awt.Color(51, 51, 255));
+        btnPuntajeUnidad.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnPuntajeUnidad.setForeground(new java.awt.Color(255, 255, 255));
+        btnPuntajeUnidad.setText("Calcular Puntaje");
+        btnPuntajeUnidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPuntajeUnidadActionPerformed(evt);
+            }
+        });
+
+        btnCrearGrupos.setBackground(new java.awt.Color(0, 204, 204));
+        btnCrearGrupos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCrearGrupos.setForeground(new java.awt.Color(255, 255, 255));
+        btnCrearGrupos.setText("Crear Grupos");
+        btnCrearGrupos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearGruposActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel8.setText("Grupos Creados:");
+
+        GruposEstudiantes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "EstID", "Nombre", "Apellido", "GrupoID", "GrupoEstudiantes"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(GruposEstudiantes);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Nombre Grupo:");
+
+        comboGrupo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Grupo 1", "Grupo 2", "Grupo 3", "Grupo 4", "Grupo 5", " " }));
+
+        btnEliminar.setBackground(new java.awt.Color(255, 0, 51));
+        btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setText("Eliminar Grupo");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
             }
         });
 
@@ -173,33 +273,55 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
             .addGroup(PanelCursosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
-                    .addGroup(PanelCursosLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelCursosLayout.createSequentialGroup()
                         .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnPuntajeUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2)
                     .addGroup(PanelCursosLayout.createSequentialGroup()
-                        .addGroup(PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jLabel8)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(PanelCursosLayout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCrearGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         PanelCursosLayout.setVerticalGroup(
             PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelCursosLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel7)
-                .addGap(1, 1, 1)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addGroup(PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelCursosLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel7))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelCursosLayout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addGroup(PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(comboGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
+                            .addComponent(btnCrearGrupos)
+                            .addComponent(btnEliminar))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31))
+                    .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPuntajeUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -235,26 +357,122 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
 
-        PanelInfoSesionClase panelCursos = new PanelInfoSesionClase(docente, cursoID, panelDashboard);
-        panelCursos.setSize(panelDashboard.getWidth(), panelDashboard.getHeight());
+    }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void btnPuntajeUnidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPuntajeUnidadActionPerformed
+       
+        panelCalculoPuntaje panel = new panelCalculoPuntaje(docente, cursoID, panelDashboard);
+        panel.setSize(panelDashboard.getWidth(), panelDashboard.getHeight());
 
         panelDashboard.removeAll();
-        panelDashboard.add(panelCursos, BorderLayout.CENTER);
+        panelDashboard.add(panel, BorderLayout.CENTER);
         panelDashboard.revalidate();
         panelDashboard.repaint();
-
-        panelCursos.cargarSesiones();
+     
         
-    }//GEN-LAST:event_btnVolverActionPerformed
+    }//GEN-LAST:event_btnPuntajeUnidadActionPerformed
+
+    private void btnCrearGruposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearGruposActionPerformed
+        List<Estudiante> estudiantesSeleccionados = obtenerEstudiantesSeleccionados();
+
+            if (estudiantesSeleccionados.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Selecciona al menos un estudiante.");
+                return;
+            }
+
+            String nombreGrupo = comboGrupo.getSelectedItem().toString(); // e.g., "Grupo 1"
+            String actividad = JOptionPane.showInputDialog(this, "Describe la actividad del grupo:");
+
+            // Crear sesión con ID real
+            SesionClase sesion = new SesionClase();
+            sesion.setSesID(sesionID); // <- reemplaza con tu ID actual de sesión
+
+            // Crear objeto grupo
+            GrupoActividad grupo = new GrupoActividad();
+            grupo.setSesion(sesion);
+            grupo.setNombreGrupo(nombreGrupo);
+            grupo.setActividad(actividad);
+            grupo.setIntegrantes(estudiantesSeleccionados);
+
+            // Guardar en BD
+            GrupoActividadDAO dao = new GrupoActividadDAO(new ConexionBD());
+            int grupoID = dao.insertarGrupoActividad(grupo);
+
+            if (grupoID != -1) {
+                JOptionPane.showMessageDialog(this, "✅ Grupo creado correctamente. ID: " + grupoID);
+                grupo.setGrupoID(grupoID); // Guardas el ID si lo necesitas después
+                cargarTablaGrupos();
+            } else {
+                JOptionPane.showMessageDialog(this, "❌ Error al crear el grupo.");
+            }
+
+    
+    }//GEN-LAST:event_btnCrearGruposActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int[] filasSeleccionadas = GruposEstudiantes.getSelectedRows();
+
+        if (filasSeleccionadas.length == 0) {
+            JOptionPane.showMessageDialog(this, "Selecciona al menos un estudiante para eliminar.");
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this, "¿Eliminar estudiantes seleccionados del grupo?", "Confirmar", JOptionPane.YES_NO_OPTION);
+        if (confirm != JOptionPane.YES_OPTION) return;
+
+        DefaultTableModel modelo = (DefaultTableModel) GruposEstudiantes.getModel();
+        List<Integer> listaEstID = new ArrayList<>();
+        int grupoID = -1;
+
+        for (int fila : filasSeleccionadas) {
+            try {
+                int estID = Integer.parseInt(String.valueOf(modelo.getValueAt(fila, 0)));
+                int grupoActual = Integer.parseInt(String.valueOf(modelo.getValueAt(fila, 3))); 
+                listaEstID.add(estID);
+
+                if (grupoID == -1) {
+                    grupoID = grupoActual;
+                } else if (grupoID != grupoActual) {
+                    JOptionPane.showMessageDialog(this, "Seleccionaste estudiantes de diferentes grupos.");
+                    return;
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Error al convertir ID. Verifica los datos.");
+                return;
+            }
+        }
+
+        if (grupoID == -1) {
+            JOptionPane.showMessageDialog(this, "No se pudo obtener el grupoID.");
+            return;
+        }
+        GrupoActividadController controller = new GrupoActividadController(new GrupoActividadDAO(new ConexionBD()));
+        boolean ok = controller.eliminarVariosIntegrantes(grupoID, listaEstID);
+
+        if (ok) {
+            JOptionPane.showMessageDialog(this, "✅ Estudiantes eliminados correctamente.");
+        } else {
+            JOptionPane.showMessageDialog(this, "❌ Error al eliminar estudiantes.");
+        }
+
+        cargarTablaGrupos(); 
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable GruposEstudiantes;
     private javax.swing.JPanel PanelCursos;
     private javax.swing.JTable TablaEstudiantes;
+    private javax.swing.JButton btnCrearGrupos;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnPuntajeUnidad;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JButton btnVolver;
+    private javax.swing.JComboBox<String> comboGrupo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

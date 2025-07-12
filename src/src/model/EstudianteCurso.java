@@ -5,6 +5,7 @@
 package src.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  *
@@ -18,11 +19,13 @@ public class EstudianteCurso {
     private int participacionTotal;
     private Docente docente;
     private int sesionID;
+    private List<EstudianteCurso> listaEstudiantesCurso;
+
 
     public EstudianteCurso() {
     }
 
-    public EstudianteCurso(Estudiante estudiante, Curso curso, LocalDate fechaInscripcion, String estado, int participacionTotal, Docente docente, int sesionID) {
+    public EstudianteCurso(Estudiante estudiante, Curso curso, LocalDate fechaInscripcion, String estado, int participacionTotal, Docente docente, int sesionID, List<EstudianteCurso> listaEstudiantesCurso) {
         this.estudiante = estudiante;
         this.curso = curso;
         this.fechaInscripcion = fechaInscripcion;
@@ -30,7 +33,10 @@ public class EstudianteCurso {
         this.participacionTotal = participacionTotal;
         this.docente = docente;
         this.sesionID = sesionID;
+        this.listaEstudiantesCurso = listaEstudiantesCurso;
     }
+
+    
 
     public Estudiante getEstudiante() {
         return estudiante;

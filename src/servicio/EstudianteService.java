@@ -8,9 +8,11 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import src.dao.EstudianteDAO;
 import src.model.Estudiante;
+import src.model.EstudianteCurso;
 import src.util.ConexionBD;
 
 /**
@@ -28,9 +30,6 @@ public class EstudianteService {
     public EstudianteService(EstudianteDAO estudianteDAO) {
         this.estudianteDAO = estudianteDAO;
     }
-
-  
-    
     //CON ESTO GENERAS MI CODIGO ESTUDIANTE
     public String generarCodigoEstudiante() {
         String codigo = null;
@@ -50,5 +49,5 @@ public class EstudianteService {
             return codigo;
     }
     
-    
+
 }

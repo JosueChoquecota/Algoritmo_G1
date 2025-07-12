@@ -8,6 +8,7 @@ import java.util.List;
 import servicio.EstudianteService;
 import src.dao.EstudianteDAO;
 import src.model.Estudiante;
+import src.model.EstudianteCurso;
 
 /**
  *
@@ -33,6 +34,10 @@ public class EstudianteController {
     // REQMS-027: RETIRAR ALUMNO
     public boolean retirarEstudianteDeCurso(int estID, int cursoID) {
         return estudianteDAO.retirarEstudianteDelCurso(estID, cursoID);
+    }
+    
+    public List<EstudianteCurso> obtenerEstudiantesPorDocente(int DocenteID) {
+        return estudianteDAO.obtenerEstudiantesPorDocente(DocenteID);
     }
 
 }

@@ -5,6 +5,7 @@
 package src.view.participaciones;
 
 import java.awt.BorderLayout;
+import java.time.LocalDate;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -15,8 +16,10 @@ import src.dao.SesionClaseDAO;
 import src.dao.SesionDetalleDAO;
 import src.model.Docente;
 import src.model.EstudianteCurso;
+import src.model.SesionClase;
 import src.model.SesionDetalle;
 import src.util.ConexionBD;
+import src.view.estudiante.panelReprogramacion;
 
 /**
  *
@@ -68,6 +71,7 @@ public class PanelInfoSesionClase extends javax.swing.JPanel {
         btnSeleccionarCurso = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        btnRepro = new javax.swing.JButton();
 
         PanelCursos.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -113,7 +117,7 @@ public class PanelInfoSesionClase extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(TablaSesiones);
 
-        btnSeleccionarCurso.setBackground(new java.awt.Color(255, 153, 153));
+        btnSeleccionarCurso.setBackground(new java.awt.Color(255, 51, 102));
         btnSeleccionarCurso.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSeleccionarCurso.setForeground(new java.awt.Color(255, 255, 255));
         btnSeleccionarCurso.setText("Seleccionar");
@@ -131,6 +135,16 @@ public class PanelInfoSesionClase extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Aqui va todos los cursos del docente para seleccionar al que le corresponde");
 
+        btnRepro.setBackground(new java.awt.Color(51, 51, 255));
+        btnRepro.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRepro.setForeground(new java.awt.Color(255, 255, 255));
+        btnRepro.setText("Reprogramación");
+        btnRepro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReproActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelCursosLayout = new javax.swing.GroupLayout(PanelCursos);
         PanelCursos.setLayout(PanelCursosLayout);
         PanelCursosLayout.setHorizontalGroup(
@@ -140,13 +154,15 @@ public class PanelInfoSesionClase extends javax.swing.JPanel {
                 .addGroup(PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
                     .addGroup(PanelCursosLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnSeleccionarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelCursosLayout.createSequentialGroup()
                         .addGroup(PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelCursosLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnRepro, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSeleccionarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         PanelCursosLayout.setVerticalGroup(
@@ -158,9 +174,11 @@ public class PanelInfoSesionClase extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(btnSeleccionarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSeleccionarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRepro, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -194,10 +212,40 @@ public class PanelInfoSesionClase extends javax.swing.JPanel {
         panelDashboard.repaint();
     }//GEN-LAST:event_btnSeleccionarCursoActionPerformed
 
+    private void btnReproActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReproActionPerformed
+        int fila = TablaSesiones.getSelectedRow();
+       if (fila == -1) {
+           JOptionPane.showMessageDialog(this, "Selecciona una sesión para reprogramar.");
+           return;
+       }
+
+       DefaultTableModel modelo = (DefaultTableModel) TablaSesiones.getModel();
+
+       int sesionID = Integer.parseInt(modelo.getValueAt(fila, 0).toString());
+       String unidad = modelo.getValueAt(fila, 1).toString();
+       String semana = modelo.getValueAt(fila, 2).toString();
+       LocalDate fecha = LocalDate.parse(modelo.getValueAt(fila, 3).toString());
+       String tipo = modelo.getValueAt(fila, 4).toString();
+       String horario = modelo.getValueAt(fila, 5).toString();
+
+       SesionClase sesion = new SesionClase();
+       sesion.setSesID(sesionID);
+       sesion.setFecha(fecha);
+       sesion.setHorario(horario);
+
+       panelReprogramacion panelRepro = new panelReprogramacion(sesion, panelDashboard, docente, cursoID);
+       panelRepro.setSize(panelDashboard.getWidth(), panelDashboard.getHeight());
+       panelDashboard.removeAll();
+       panelDashboard.add(panelRepro, BorderLayout.CENTER);
+       panelDashboard.revalidate();
+       panelDashboard.repaint();
+    }//GEN-LAST:event_btnReproActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelCursos;
     private javax.swing.JTable TablaSesiones;
+    private javax.swing.JButton btnRepro;
     private javax.swing.JButton btnSeleccionarCurso;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;

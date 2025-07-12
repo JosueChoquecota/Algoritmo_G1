@@ -13,7 +13,7 @@ public class Participacion {
     private int puntaje;        // 1, 2 o 3
     private String observacion; // OBSERVACIÓN CUALITATIVA POR PARTE DEL DOCENTE
     private LocalDate fecha;       // FECHA EXACTA DE PARTICIPACIÓN
-
+    private Curso curso;
     public Participacion() {
     }
 
@@ -26,6 +26,14 @@ public class Participacion {
         this.puntaje = puntaje;
         this.observacion = observacion;
         this.fecha = fecha;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
 
     public int getPartID() {

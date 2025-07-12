@@ -45,17 +45,11 @@ public class PanelRegistroDocente extends javax.swing.JPanel {
             hoy,
             Calendar.DAY_OF_MONTH
         );
-        
-        registroDocenteFechaNac.setModel(dateModel);
-        
+        registroDocenteFechaNac.setModel(dateModel); 
         JSpinner.DateEditor dateEditor =
-            new JSpinner.DateEditor(registroDocenteFechaNac, "yyyy-MM-dd");
-        registroDocenteFechaNac.setEditor(dateEditor);
-        
-        registroDocenteFechaNac.setValue(new Date());
-        
-       
-        
+        new JSpinner.DateEditor(registroDocenteFechaNac, "yyyy-MM-dd");
+        registroDocenteFechaNac.setEditor(dateEditor);  
+        registroDocenteFechaNac.setValue(new Date());    
     }
     private void limpiarCampos() {
         registroDocenteNom.setText("");
@@ -67,6 +61,9 @@ public class PanelRegistroDocente extends javax.swing.JPanel {
         registroDocenteTelefono.setText("");
         registroDocenteContrasena.setText("");
     }
+    
+    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -490,9 +487,6 @@ public class PanelRegistroDocente extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "❌ Error al registrar docente", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        
-
-           
     }//GEN-LAST:event_registroDocenteBtnRegistrarActionPerformed
 
     private void registroDocenteNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroDocenteNomActionPerformed

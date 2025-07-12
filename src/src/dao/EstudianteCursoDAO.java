@@ -80,7 +80,7 @@ public class EstudianteCursoDAO {
             }
 
         } catch (SQLException ex) {
-            System.out.println("❌ Error al obtener estudiantes por sesión: " + ex.getMessage());
+            System.out.println("Error al obtener estudiantes por sesión: " + ex.getMessage());
         }
 
         return lista;
