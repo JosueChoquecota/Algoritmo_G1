@@ -31,7 +31,7 @@ public class ReprogramacionDAO {
     try (Connection connection = conn.establecerConexion()) {
         connection.setAutoCommit(false); //
 
-        // 1. Actualiza la sesión
+        //  Actualiza la sesión
         try (PreparedStatement stmtUpdate = connection.prepareStatement(actualizarSesionSQL)) {
             stmtUpdate.setDate(1, Date.valueOf(repro.getFechaNueva()));
             stmtUpdate.setString(2, repro.getHorario());
@@ -39,7 +39,7 @@ public class ReprogramacionDAO {
             stmtUpdate.executeUpdate();
         }
 
-        // 2. Inserta la reprogramación
+        // Inserta la reprogramación
         try (PreparedStatement stmtInsert = connection.prepareStatement(insertarReprogramacionSQL)) {
             stmtInsert.setInt(1, repro.getSesion().getSesID());
             stmtInsert.setDate(2, Date.valueOf(repro.getFechaAnterior()));
@@ -57,36 +57,5 @@ public class ReprogramacionDAO {
         return false;
     }
 }
-    public static void main(String[] args) {
-            ConexionBD conexion = new ConexionBD();
-            ReprogramacionDAO dao = new ReprogramacionDAO(conexion);
-            Scanner leer = new Scanner(System.in);
-            // Simulación de una sesión (supón que esta sesión existe)
-            SesionClase sesion = new SesionClase();
-            sesion.setSesID(2291); // Cambia esto por un ID real
-
-            // Creamos la reprogramación
-            Reprogramación repro = new Reprogramación();
-            repro.setSesion(sesion);
-            repro.setFechaAnterior(LocalDate.of(2025, 6, 11)); // Fecha actual original
-            repro.setFechaNueva(LocalDate.of(2025, 4, 11));     // Fecha modificada
-            repro.setMotivo("Docente no disponible");           // Ejemplo de motivo
-            
-            System.out.println("Ingrese el dia");
-            String dia = leer.next();
-            System.out.println("Ingrese el horario inicio");
-            String horario1 = leer.next();
-            System.out.println("Ingrese el horario inicio");
-            String horario2 = leer.next();
-            repro.setHorario(dia + " " + horario1 + " - " + horario2); 
-            
-            boolean resultado = dao.registrarReprogramacion(repro);
-
-            if (resultado) {
-                System.out.println("✅ Reprogramación registrada con éxito.");
-            } else {
-                System.out.println("❌ No se pudo registrar la reprogramación.");
-            }
-        }
     
 }

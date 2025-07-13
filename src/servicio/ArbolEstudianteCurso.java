@@ -36,7 +36,7 @@ public class ArbolEstudianteCurso {
 
     private void inOrdenDescRec(NodoEstudianteCurso nodo, List<EstudianteCurso> lista) {
         if (nodo != null) {
-            inOrdenDescRec(nodo.derecha, lista); // mayor puntaje primero
+            inOrdenDescRec(nodo.derecha, lista); 
             lista.add(nodo.estudianteCurso);
             inOrdenDescRec(nodo.izquierda, lista);
         }
@@ -47,7 +47,7 @@ public class ArbolEstudianteCurso {
 
     private void inOrdenAscRec(NodoEstudianteCurso nodo, List<EstudianteCurso> lista) {
         if (nodo != null) {
-            inOrdenAscRec(nodo.izquierda, lista); // menor puntaje primero
+            inOrdenAscRec(nodo.izquierda, lista);
             lista.add(nodo.estudianteCurso);
             inOrdenAscRec(nodo.derecha, lista);
         }

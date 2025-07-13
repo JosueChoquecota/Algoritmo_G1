@@ -22,38 +22,40 @@ public class PuntajeTotalEstudianteDAO {
     }
     
     public List<PuntajeTotalEstudiante> listarPuntajePorUnidad(int unidad, int cursoID, Docente docente) {
-    List<PuntajeTotalEstudiante> lista = new ArrayList<>();
-    String sql = "{call sp_puntaje_por_unidad(?, ?, ?)}";
+        List<PuntajeTotalEstudiante> lista = new ArrayList<>();
+        String sql = "{call sp_puntaje_por_unidad(?, ?, ?)}";
 
-    try (Connection connection = conn.establecerConexion();
-         PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (Connection connection = conn.establecerConexion();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-        stmt.setInt(1, unidad);
-        stmt.setInt(2, cursoID);
-        stmt.setInt(3, docente.getDocID());
+            stmt.setInt(1, unidad);
+            stmt.setInt(2, cursoID);
+            stmt.setInt(3, docente.getDocID());
 
-        ResultSet rs = stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
 
-        while (rs.next()) {
-            int codigo = rs.getInt("Codigo");
-            String nombre = rs.getString("nombreCompleto");
-            int unidadResult = rs.getInt("unidad");
-            int semanas = rs.getInt("semanas");
-            int totalPuntaje = rs.getInt("totalPuntaje");
-            double promedio = rs.getDouble("promedioPorSemana");
+            while (rs.next()) {
+                int codigo = rs.getInt("Codigo");
+                String nombre = rs.getString("nombreCompleto");
+                int unidadResult = rs.getInt("unidad");
+                int sesiones = rs.getInt("sesiones");
+                int totalPuntaje = rs.getInt("totalPuntaje");
+                double promedio = rs.getDouble("Promedio");
+                int puntajeMaximo = rs.getInt("puntajeMaximo");
 
-            PuntajeTotalEstudiante pte = new PuntajeTotalEstudiante(
-                codigo, nombre, unidadResult, semanas, totalPuntaje, promedio
-            );
+                PuntajeTotalEstudiante pte = new PuntajeTotalEstudiante(
+                    codigo, nombre, unidadResult, sesiones, totalPuntaje, promedio, puntajeMaximo
+                );
 
-            lista.add(pte);
+                lista.add(pte);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return lista;
     }
 
-    return lista;
-}
 
 }

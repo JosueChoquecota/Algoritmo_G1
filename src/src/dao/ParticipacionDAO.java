@@ -57,7 +57,25 @@ public class ParticipacionDAO {
         return false;
     }
 }
-   
+   public int obtenerPuntajeAcumulado(int estudianteID, int sesionID) {
+        String sql = "SELECT COALESCE(SUM(puntaje), 0) FROM Participacion WHERE estudianteID = ? AND sesID = ?";
+        try (Connection connection = conn.establecerConexion();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setInt(1, estudianteID);
+            stmt.setInt(2, sesionID);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println("❌ Error al obtener puntaje acumulado: " + e.getMessage());
+        }
+
+        return 0;
+    }
+
    public List<Participacion> obtenerParticipacionesPorEstudiante(int estID) {
     List<Participacion> lista = new ArrayList<>();
     String sql = "SELECT p.partID, p.tipo, p.puntaje, p.observacion, p.fecha, p.sesID " +

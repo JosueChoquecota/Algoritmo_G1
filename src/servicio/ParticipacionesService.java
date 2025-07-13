@@ -25,5 +25,17 @@ public class ParticipacionesService {
     public boolean insertarParticipacion(Participacion participacion) {
     return participacionDAO.insertarParticipacion(participacion);
 }
+    public boolean registrarParticipacion(Participacion participacion) {
+           int estID = participacion.getEstudiante().getEstID();
+           int sesID = participacion.getSesion().getSesID();
+           int puntosActuales = participacionDAO.obtenerPuntajeAcumulado(estID, sesID);
+           int nuevoPuntaje = participacion.getPuntaje();
 
+           if (puntosActuales + nuevoPuntaje > 3) {
+               System.out.println("❌ No se puede registrar: se exceden los 3 puntos máximos por sesión.");
+               return false;
+           }
+
+           return participacionDAO.insertarParticipacion(participacion);
+       }
 }

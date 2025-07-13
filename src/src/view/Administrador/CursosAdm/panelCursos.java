@@ -190,10 +190,11 @@ public class panelCursos extends javax.swing.JPanel {
         panelDashboard2.setMaximumSize(new java.awt.Dimension(740, 650));
         panelDashboard2.setMinimumSize(new java.awt.Dimension(740, 650));
 
-        btnRegistrar.setBackground(new java.awt.Color(102, 153, 255));
+        btnRegistrar.setBackground(new java.awt.Color(0, 0, 0));
         btnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setText(" Registrar Curso");
+        btnRegistrar.setBorder(null);
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarActionPerformed(evt);
@@ -232,43 +233,52 @@ public class panelCursos extends javax.swing.JPanel {
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Semanas:");
 
-        txtNombre.setBackground(new java.awt.Color(204, 204, 255));
+        txtNombre.setBackground(new java.awt.Color(255, 255, 255));
         txtNombre.setForeground(new java.awt.Color(0, 0, 0));
+        txtNombre.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
-        txtAno.setBackground(new java.awt.Color(204, 204, 255));
+        txtAno.setBackground(new java.awt.Color(255, 255, 255));
         txtAno.setForeground(new java.awt.Color(0, 0, 0));
         txtAno.setText("2025");
+        txtAno.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
-        txtHora.setBackground(new java.awt.Color(204, 204, 255));
+        txtHora.setBackground(new java.awt.Color(255, 255, 255));
         txtHora.setForeground(new java.awt.Color(0, 0, 0));
         txtHora.setText("ej: 13:00 - 15:00");
+        txtHora.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
-        boxCreditos.setBackground(new java.awt.Color(204, 204, 255));
+        boxCreditos.setBackground(new java.awt.Color(255, 255, 255));
         boxCreditos.setForeground(new java.awt.Color(0, 0, 0));
         boxCreditos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+        boxCreditos.setBorder(null);
 
-        boxCiclo.setBackground(new java.awt.Color(204, 204, 255));
+        boxCiclo.setBackground(new java.awt.Color(255, 255, 255));
         boxCiclo.setForeground(new java.awt.Color(0, 0, 0));
         boxCiclo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2025-Verano", "2025-I", "2025-II", "2026-Verano", "2026-I", "2026-II", "2027-Verano", "2027-I", "2027-II", " " }));
+        boxCiclo.setBorder(null);
 
-        boxSemanas.setBackground(new java.awt.Color(204, 204, 255));
+        boxSemanas.setBackground(new java.awt.Color(255, 255, 255));
         boxSemanas.setForeground(new java.awt.Color(0, 0, 0));
         boxSemanas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "4", "8", "12", "16", "18" }));
+        boxSemanas.setBorder(null);
 
-        boxModalidad.setBackground(new java.awt.Color(204, 204, 255));
+        boxModalidad.setBackground(new java.awt.Color(255, 255, 255));
         boxModalidad.setForeground(new java.awt.Color(0, 0, 0));
         boxModalidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Presencial", "Virtual" }));
+        boxModalidad.setBorder(null);
 
-        boxDia.setBackground(new java.awt.Color(204, 204, 255));
+        boxDia.setBackground(new java.awt.Color(255, 255, 255));
         boxDia.setForeground(new java.awt.Color(0, 0, 0));
         boxDia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado" }));
+        boxDia.setBorder(null);
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Día-Turno-1");
 
-        txtHora1.setBackground(new java.awt.Color(204, 204, 255));
+        txtHora1.setBackground(new java.awt.Color(255, 255, 255));
         txtHora1.setForeground(new java.awt.Color(0, 0, 0));
+        txtHora1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         txtHora1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtHora1ActionPerformed(evt);
@@ -283,52 +293,61 @@ public class panelCursos extends javax.swing.JPanel {
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Día-Turno-2");
 
-        boxDia1.setBackground(new java.awt.Color(204, 204, 255));
+        boxDia1.setBackground(new java.awt.Color(255, 255, 255));
         boxDia1.setForeground(new java.awt.Color(0, 0, 0));
         boxDia1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sábado" }));
+        boxDia1.setBorder(null);
 
-        txtMes.setBackground(new java.awt.Color(204, 204, 255));
+        txtMes.setBackground(new java.awt.Color(255, 255, 255));
         txtMes.setForeground(new java.awt.Color(0, 0, 0));
         txtMes.setText("05");
+        txtMes.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
-        txtDia.setBackground(new java.awt.Color(204, 204, 255));
+        txtDia.setBackground(new java.awt.Color(255, 255, 255));
         txtDia.setForeground(new java.awt.Color(0, 0, 0));
         txtDia.setText("12");
+        txtDia.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         txtDia.setPreferredSize(new java.awt.Dimension(55, 22));
 
-        txtAno1.setBackground(new java.awt.Color(204, 204, 255));
+        txtAno1.setBackground(new java.awt.Color(255, 255, 255));
         txtAno1.setForeground(new java.awt.Color(0, 0, 0));
+        txtAno1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
-        txtMes1.setBackground(new java.awt.Color(204, 204, 255));
+        txtMes1.setBackground(new java.awt.Color(255, 255, 255));
         txtMes1.setForeground(new java.awt.Color(0, 0, 0));
+        txtMes1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
-        txtDia1.setBackground(new java.awt.Color(204, 204, 255));
+        txtDia1.setBackground(new java.awt.Color(255, 255, 255));
         txtDia1.setForeground(new java.awt.Color(0, 0, 0));
+        txtDia1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         txtDia1.setPreferredSize(new java.awt.Dimension(55, 22));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("Hora-Curso-1");
 
-        boxHoras.setBackground(new java.awt.Color(204, 204, 255));
+        boxHoras.setBackground(new java.awt.Color(255, 255, 255));
         boxHoras.setForeground(new java.awt.Color(0, 0, 0));
         boxHoras.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+        boxHoras.setBorder(null);
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("Hora-Curso-2:");
 
-        boxHoras1.setBackground(new java.awt.Color(204, 204, 255));
+        boxHoras1.setBackground(new java.awt.Color(255, 255, 255));
         boxHoras1.setForeground(new java.awt.Color(0, 0, 0));
         boxHoras1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+        boxHoras1.setBorder(null);
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("¿Tiene sesiónes Prácticas?");
 
-        boxPractica.setBackground(new java.awt.Color(204, 204, 255));
+        boxPractica.setBackground(new java.awt.Color(255, 255, 255));
         boxPractica.setForeground(new java.awt.Color(0, 0, 0));
         boxPractica.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Si", "No" }));
+        boxPractica.setBorder(null);
         boxPractica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boxPracticaActionPerformed(evt);
@@ -433,10 +452,11 @@ public class panelCursos extends javax.swing.JPanel {
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Docente Sesión Práctica:");
 
-        jButton2.setBackground(new java.awt.Color(102, 153, 255));
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setText("Limpiar");
+        jButton2.setBorder(null);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -447,12 +467,6 @@ public class panelCursos extends javax.swing.JPanel {
         panelDashboard2.setLayout(panelDashboard2Layout);
         panelDashboard2Layout.setHorizontalGroup(
             panelDashboard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDashboard2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(panelDashboard2Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(panelDashboard2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -505,7 +519,11 @@ public class panelCursos extends javax.swing.JPanel {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel16))))
+                            .addComponent(jLabel16)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDashboard2Layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(9, Short.MAX_VALUE))
         );
         panelDashboard2Layout.setVerticalGroup(

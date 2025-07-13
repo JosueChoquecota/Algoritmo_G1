@@ -26,7 +26,7 @@ import src.view.participaciones.PanelInfoSesionClase;
 public class panelCursosDocente extends javax.swing.JPanel {
 
     private Docente docente;
-    private javax.swing.JPanel panelDashboard; // << NUEVO
+    private javax.swing.JPanel panelDashboard; 
     private CursoDAO curso;
     private SesionDetalle sesion;
 
@@ -37,7 +37,8 @@ public class panelCursosDocente extends javax.swing.JPanel {
                 this.docente = docente;
                 this.panelDashboard = panelDashboard;
                 this.curso = new CursoDAO(new ConexionBD());
-        initComponents();
+                initComponents();
+                cargarCursos();
         
     }
     public void cargarCursos() {
@@ -48,8 +49,7 @@ public class panelCursosDocente extends javax.swing.JPanel {
         CursoController cursoController = new CursoController(new CursoDAO(new ConexionBD()));  
         List<Curso> cursos = cursoController.mostrarCursosDocente(docente.getDocID());
         DefaultTableModel model = (DefaultTableModel) TablaCursos.getModel();
-        model.setRowCount(0); // Limpiar tabla
-
+        model.setRowCount(0);
         for (Curso c : cursos) {
             model.addRow(new Object[]{
                 c.getCursoNombre(),
@@ -60,7 +60,6 @@ public class panelCursosDocente extends javax.swing.JPanel {
             });
         }
 }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -71,9 +70,14 @@ public class panelCursosDocente extends javax.swing.JPanel {
         btnSeleccionarCurso = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
-        PanelCursos.setBackground(new java.awt.Color(204, 204, 204));
+        PanelCursos.setBackground(new java.awt.Color(241, 241, 241));
+        PanelCursos.setForeground(new java.awt.Color(255, 255, 255));
+        PanelCursos.setPreferredSize(new java.awt.Dimension(635, 494));
 
+        TablaCursos.setBackground(new java.awt.Color(255, 255, 255));
+        TablaCursos.setForeground(new java.awt.Color(0, 0, 0));
         TablaCursos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -114,12 +118,15 @@ public class panelCursosDocente extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+        TablaCursos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        TablaCursos.setGridColor(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(TablaCursos);
 
-        btnSeleccionarCurso.setBackground(new java.awt.Color(255, 153, 153));
+        btnSeleccionarCurso.setBackground(new java.awt.Color(0, 0, 0));
         btnSeleccionarCurso.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSeleccionarCurso.setForeground(new java.awt.Color(255, 255, 255));
         btnSeleccionarCurso.setText("Seleccionar");
+        btnSeleccionarCurso.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSeleccionarCurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSeleccionarCursoActionPerformed(evt);
@@ -132,7 +139,11 @@ public class panelCursosDocente extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Aqui va todos los cursos del docente para seleccionar al que le corresponde");
+        jLabel1.setText("Estos son los cursos asignados al docente para el ciclo actual. Selecciona uno para visualizar sus sesiones,");
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("gestionar la participación de los estudiantes y realizar reprogramaciones si es necesario.");
 
         javax.swing.GroupLayout PanelCursosLayout = new javax.swing.GroupLayout(PanelCursos);
         PanelCursos.setLayout(PanelCursosLayout);
@@ -142,28 +153,30 @@ public class panelCursosDocente extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
-                    .addGroup(PanelCursosLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelCursosLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnSeleccionarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnSeleccionarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PanelCursosLayout.createSequentialGroup()
-                        .addGroup(PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jLabel7)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         PanelCursosLayout.setVerticalGroup(
             PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelCursosLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(33, 33, 33)
                 .addComponent(jLabel7)
-                .addGap(1, 1, 1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSeleccionarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -174,7 +187,7 @@ public class panelCursosDocente extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelCursos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelCursos, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -208,6 +221,7 @@ public class panelCursosDocente extends javax.swing.JPanel {
     private javax.swing.JTable TablaCursos;
     private javax.swing.JButton btnSeleccionarCurso;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

@@ -10,6 +10,7 @@ import src.view.Administrador.CursosAdm.PanelRegistroDocente;
 import src.view.Administrador.CursosAdm.PanelRegistroEstudiante;
 import src.view.Administrador.CursosAdm.PanelTablaAlumnos;
 import src.view.Administrador.CursosAdm.panelCursos;
+import src.view.docente.PanelListaDocentes;
 
 /**
  *
@@ -22,12 +23,15 @@ public class dashBoardAdministrador extends javax.swing.JFrame {
     private PanelRegistroDocente panelDocente;
     private PanelRegistroEstudiante panelRegistroEstudiante;
     private PanelTablaAlumnos panelTablaAlumnos;
+    private PanelListaDocentes panelListaDocentes;
     
     public dashBoardAdministrador(Administrador administrador) {
         this.administrador = administrador;
         initComponents();
+        setLocationRelativeTo(null);
         setTitle("Panel del Administrador");
         
+        labelDocente.setText(administrador.getNombre() + " " + administrador.getApellido());
         panelDashboardAdm.setLayout(new BorderLayout()); 
     }
 
@@ -43,8 +47,15 @@ public class dashBoardAdministrador extends javax.swing.JFrame {
         btnDocente = new javax.swing.JButton();
         btnAlumnos = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        btnAlumnos1 = new javax.swing.JButton();
+        btnAlumnos2 = new javax.swing.JButton();
+        btnTablaDoncete = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        labelDocente = new javax.swing.JLabel();
         panelDashboardAdm = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         panelDashboard.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -63,39 +74,45 @@ public class dashBoardAdministrador extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(0, 51, 102));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnCursos.setBackground(new java.awt.Color(0, 153, 153));
+        btnCursos.setBackground(new java.awt.Color(255, 255, 255));
         btnCursos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnCursos.setForeground(new java.awt.Color(255, 255, 255));
+        btnCursos.setForeground(new java.awt.Color(0, 0, 0));
+        btnCursos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/Cursos.png"))); // NOI18N
         btnCursos.setText("Registrar Curso");
+        btnCursos.setBorder(null);
         btnCursos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCursosActionPerformed(evt);
             }
         });
 
-        btnDocente.setBackground(new java.awt.Color(0, 153, 153));
+        btnDocente.setBackground(new java.awt.Color(255, 255, 255));
         btnDocente.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnDocente.setForeground(new java.awt.Color(255, 255, 255));
+        btnDocente.setForeground(new java.awt.Color(0, 0, 0));
+        btnDocente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/cursos_registro.png"))); // NOI18N
         btnDocente.setText("Registrar Curso");
+        btnDocente.setBorder(null);
         btnDocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDocenteActionPerformed(evt);
             }
         });
 
-        btnAlumnos.setBackground(new java.awt.Color(0, 153, 153));
+        btnAlumnos.setBackground(new java.awt.Color(255, 255, 255));
         btnAlumnos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnAlumnos.setForeground(new java.awt.Color(255, 255, 255));
+        btnAlumnos.setForeground(new java.awt.Color(0, 0, 0));
+        btnAlumnos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/Estudiantes.png"))); // NOI18N
         btnAlumnos.setText("Registrar Alumno");
+        btnAlumnos.setBorder(null);
         btnAlumnos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlumnosActionPerformed(evt);
             }
         });
 
-        btnSalir.setBackground(new java.awt.Color(255, 153, 153));
+        btnSalir.setBackground(new java.awt.Color(0, 0, 0));
         btnSalir.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSalir.setForeground(new java.awt.Color(255, 255, 255));
         btnSalir.setText("Log Out");
@@ -105,15 +122,38 @@ public class dashBoardAdministrador extends javax.swing.JFrame {
             }
         });
 
-        btnAlumnos1.setBackground(new java.awt.Color(0, 153, 153));
-        btnAlumnos1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnAlumnos1.setForeground(new java.awt.Color(255, 255, 255));
-        btnAlumnos1.setText("Asignar Alumnos a Curso");
-        btnAlumnos1.addActionListener(new java.awt.event.ActionListener() {
+        btnAlumnos2.setBackground(new java.awt.Color(0, 0, 0));
+        btnAlumnos2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnAlumnos2.setForeground(new java.awt.Color(255, 255, 255));
+        btnAlumnos2.setText("Lista Alumnos");
+        btnAlumnos2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAlumnos1ActionPerformed(evt);
+                btnAlumnos2ActionPerformed(evt);
             }
         });
+
+        btnTablaDoncete.setBackground(new java.awt.Color(0, 0, 0));
+        btnTablaDoncete.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnTablaDoncete.setForeground(new java.awt.Color(255, 255, 255));
+        btnTablaDoncete.setText("Lista Docentes");
+        btnTablaDoncete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTablaDonceteActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setBackground(new java.awt.Color(0, 102, 102));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/Marca.png"))); // NOI18N
+        jLabel3.setText("PuntoClase");
+
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/usuario.png"))); // NOI18N
+
+        labelDocente.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        labelDocente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelDocente.setText("NombreAdm");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -122,43 +162,81 @@ public class dashBoardAdministrador extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnAlumnos, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                    .addComponent(btnDocente, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                    .addComponent(btnCursos, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                    .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAlumnos1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                    .addComponent(jLabel3)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnAlumnos2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnTablaDoncete, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnAlumnos, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(btnDocente, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(btnCursos, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(labelDocente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(labelDocente)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(btnCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addGap(18, 18, 18)
                 .addComponent(btnDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addGap(18, 18, 18)
                 .addComponent(btnAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(btnAlumnos1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 264, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnAlumnos2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnTablaDoncete, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                .addGap(53, 53, 53))
         );
 
-        panelDashboardAdm.setBackground(new java.awt.Color(204, 204, 204));
+        panelDashboardAdm.setBackground(new java.awt.Color(255, 255, 255));
+        panelDashboardAdm.setForeground(new java.awt.Color(255, 255, 255));
         panelDashboardAdm.setMaximumSize(new java.awt.Dimension(740, 650));
         panelDashboardAdm.setMinimumSize(new java.awt.Dimension(740, 650));
         panelDashboardAdm.setPreferredSize(new java.awt.Dimension(740, 650));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/Panel_adm.jpg"))); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Bienvenido al Panel de Administración ");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setText("Accede a las herramientas esenciales para gestionar eficientemente la plataforma educativa.  ");
 
         javax.swing.GroupLayout panelDashboardAdmLayout = new javax.swing.GroupLayout(panelDashboardAdm);
         panelDashboardAdm.setLayout(panelDashboardAdmLayout);
         panelDashboardAdmLayout.setHorizontalGroup(
             panelDashboardAdmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 743, Short.MAX_VALUE)
+            .addGroup(panelDashboardAdmLayout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addGroup(panelDashboardAdmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 633, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         panelDashboardAdmLayout.setVerticalGroup(
             panelDashboardAdmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDashboardAdmLayout.createSequentialGroup()
+                .addContainerGap(114, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addGap(111, 111, 111))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -168,7 +246,7 @@ public class dashBoardAdministrador extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelDashboardAdm, javax.swing.GroupLayout.DEFAULT_SIZE, 743, Short.MAX_VALUE)
+                .addComponent(panelDashboardAdm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -176,7 +254,7 @@ public class dashBoardAdministrador extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(panelDashboardAdm, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
+                .addComponent(panelDashboardAdm, javax.swing.GroupLayout.DEFAULT_SIZE, 689, Short.MAX_VALUE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -194,31 +272,21 @@ public class dashBoardAdministrador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlumnosActionPerformed
+    private void btnTablaDonceteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTablaDonceteActionPerformed
         panelDashboardAdm.removeAll();
-        panelRegistroEstudiante = new PanelRegistroEstudiante();
-        panelDashboardAdm.add(panelRegistroEstudiante,BorderLayout.CENTER);
-        panelRegistroEstudiante.setVisible(true);
-
-
-    }//GEN-LAST:event_btnAlumnosActionPerformed
-
-    private void btnCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCursosActionPerformed
-        panelDashboardAdm.removeAll();  
-        panelCursos = new panelCursos();
-        panelDashboardAdm.add(panelCursos, BorderLayout.CENTER);
-        panelCursos.setVisible(true);
-        panelCursos.cargarDocente();
+        panelListaDocentes = new PanelListaDocentes();
+        panelDashboardAdm.add(panelListaDocentes,BorderLayout.CENTER);
+        panelListaDocentes.setVisible(true);
         panelDashboardAdm.revalidate();
         panelDashboardAdm.repaint();
-    }//GEN-LAST:event_btnCursosActionPerformed
+    }//GEN-LAST:event_btnTablaDonceteActionPerformed
 
-    private void btnDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDocenteActionPerformed
+    private void btnAlumnos2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlumnos2ActionPerformed
         panelDashboardAdm.removeAll();
-        panelDocente = new PanelRegistroDocente();
-        panelDashboardAdm.add(panelDocente, BorderLayout.CENTER);
-        panelDocente.setVisible(true);
-    }//GEN-LAST:event_btnDocenteActionPerformed
+        panelTablaAlumnos = new PanelTablaAlumnos();
+        panelDashboardAdm.add(panelTablaAlumnos, BorderLayout.CENTER);
+        panelTablaAlumnos.setVisible(true);
+    }//GEN-LAST:event_btnAlumnos2ActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         int opcion = javax.swing.JOptionPane.showConfirmDialog(this,
@@ -231,12 +299,29 @@ public class dashBoardAdministrador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSalirActionPerformed
 
-    private void btnAlumnos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlumnos1ActionPerformed
-                panelDashboardAdm.removeAll();
-                panelTablaAlumnos = new PanelTablaAlumnos();
-                panelDashboardAdm.add(panelTablaAlumnos, BorderLayout.CENTER);
-                panelTablaAlumnos.setVisible(true);
-    }//GEN-LAST:event_btnAlumnos1ActionPerformed
+    private void btnAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlumnosActionPerformed
+        panelDashboardAdm.removeAll();
+        panelRegistroEstudiante = new PanelRegistroEstudiante();
+        panelDashboardAdm.add(panelRegistroEstudiante,BorderLayout.CENTER);
+        panelRegistroEstudiante.setVisible(true);
+    }//GEN-LAST:event_btnAlumnosActionPerformed
+
+    private void btnDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDocenteActionPerformed
+        panelDashboardAdm.removeAll();
+        panelDocente = new PanelRegistroDocente();
+        panelDashboardAdm.add(panelDocente, BorderLayout.CENTER);
+        panelDocente.setVisible(true);
+    }//GEN-LAST:event_btnDocenteActionPerformed
+
+    private void btnCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCursosActionPerformed
+        panelDashboardAdm.removeAll();
+        panelCursos = new panelCursos();
+        panelDashboardAdm.add(panelCursos, BorderLayout.CENTER);
+        panelCursos.setVisible(true);
+        panelCursos.cargarDocente();
+        panelDashboardAdm.revalidate();
+        panelDashboardAdm.repaint();
+    }//GEN-LAST:event_btnCursosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -247,12 +332,19 @@ public class dashBoardAdministrador extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlumnos;
-    private javax.swing.JButton btnAlumnos1;
+    private javax.swing.JButton btnAlumnos2;
     private javax.swing.JButton btnCursos;
     private javax.swing.JButton btnDocente;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnTablaDoncete;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel labelDocente;
     private javax.swing.JPanel panelDashboard;
     private javax.swing.JPanel panelDashboardAdm;
     // End of variables declaration//GEN-END:variables

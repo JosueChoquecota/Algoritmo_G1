@@ -20,13 +20,9 @@ import src.model.Curso;
 import src.model.Estudiante;
 import src.model.EstudianteCurso;
 
-/**
- *
- * @author ASUS
- */
+
 public class ExportadorPDFService {
      public void exportarTabla(List<EstudianteCurso> estudiantes, File destino) {
-        // Asegurar que el archivo termine en .pdf
             if (!destino.getName().toLowerCase().endsWith(".pdf")) {
                 destino = new File(destino.getAbsolutePath() + ".pdf");
             }
@@ -36,7 +32,6 @@ public class ExportadorPDFService {
             PdfWriter.getInstance((com.itextpdf.text.Document) document, new FileOutputStream(destino));
             document.open();
 
-            // Título
             Font tituloFont = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD);
             Paragraph titulo = new Paragraph("Lista de Estudiantes", tituloFont);
             titulo.setAlignment(Element.ALIGN_CENTER);
@@ -44,7 +39,7 @@ public class ExportadorPDFService {
             document.add(titulo);
 
             // Crear tabla
-            PdfPTable tabla = new PdfPTable(6); // 6 columnas
+            PdfPTable tabla = new PdfPTable(6);
             tabla.setWidthPercentage(100);
             tabla.setSpacingBefore(10f);
             tabla.setSpacingAfter(10f);

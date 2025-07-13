@@ -8,11 +8,11 @@ public class Participacion {
     private int partID;
     private Estudiante estudiante;
     private SesionClase sesion;
-    private Docente docente;       // ✅ Agregado
-    private String tipo;        // SI SERÁ APORTE, PREGUNTA O ACTIVIDAD
-    private int puntaje;        // 1, 2 o 3
-    private String observacion; // OBSERVACIÓN CUALITATIVA POR PARTE DEL DOCENTE
-    private LocalDate fecha;       // FECHA EXACTA DE PARTICIPACIÓN
+    private Docente docente;      
+    private String tipo;        
+    private int puntaje;        
+    private String observacion; 
+    private LocalDate fecha;       
     private Curso curso;
     public Participacion() {
     }

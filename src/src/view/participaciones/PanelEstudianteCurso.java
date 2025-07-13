@@ -29,15 +29,13 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
     private Docente docente;
     private int cursoID;
     private int sesionID;
-    private panelCalculoPuntajeUnidad panelCalculo;
     
     public PanelEstudianteCurso(int cursoID, Docente docente, int sesionID, JPanel panelDashboard) {
         this.cursoID = cursoID;
         this.docente = docente;
         this.sesionID = sesionID;
         this.panelDashboard = panelDashboard;
-        initComponents();
-        
+        initComponents();        
         modelo = (DefaultTableModel) TablaEstudiantes.getModel();
         cargarDatos(cursoID, docente);
     }
@@ -133,7 +131,6 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         GruposEstudiantes = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
         comboGrupo = new javax.swing.JComboBox<>();
         btnEliminar = new javax.swing.JButton();
 
@@ -181,7 +178,7 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(TablaEstudiantes);
 
-        btnSeleccionar.setBackground(new java.awt.Color(255, 51, 102));
+        btnSeleccionar.setBackground(new java.awt.Color(0, 0, 0));
         btnSeleccionar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
         btnSeleccionar.setText("Seleccionar");
@@ -195,27 +192,28 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Estudiantes:");
 
-        btnVolver.setBackground(new java.awt.Color(0, 204, 204));
+        btnVolver.setBackground(new java.awt.Color(255, 255, 255));
         btnVolver.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnVolver.setForeground(new java.awt.Color(255, 255, 255));
+        btnVolver.setForeground(new java.awt.Color(0, 0, 0));
         btnVolver.setText("Volver");
+        btnVolver.setBorder(null);
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVolverActionPerformed(evt);
             }
         });
 
-        btnPuntajeUnidad.setBackground(new java.awt.Color(51, 51, 255));
+        btnPuntajeUnidad.setBackground(new java.awt.Color(0, 0, 0));
         btnPuntajeUnidad.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnPuntajeUnidad.setForeground(new java.awt.Color(255, 255, 255));
-        btnPuntajeUnidad.setText("Calcular Puntaje");
+        btnPuntajeUnidad.setText("Ver Total");
         btnPuntajeUnidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPuntajeUnidadActionPerformed(evt);
             }
         });
 
-        btnCrearGrupos.setBackground(new java.awt.Color(0, 204, 204));
+        btnCrearGrupos.setBackground(new java.awt.Color(0, 0, 0));
         btnCrearGrupos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCrearGrupos.setForeground(new java.awt.Color(255, 255, 255));
         btnCrearGrupos.setText("Crear Grupos");
@@ -250,16 +248,16 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(GruposEstudiantes);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Nombre Grupo:");
-
+        comboGrupo.setBackground(new java.awt.Color(255, 255, 255));
+        comboGrupo.setForeground(new java.awt.Color(0, 0, 0));
         comboGrupo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Grupo 1", "Grupo 2", "Grupo 3", "Grupo 4", "Grupo 5", " " }));
+        comboGrupo.setBorder(null);
 
-        btnEliminar.setBackground(new java.awt.Color(255, 0, 51));
+        btnEliminar.setBackground(new java.awt.Color(255, 255, 255));
         btnEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setForeground(new java.awt.Color(0, 0, 0));
         btnEliminar.setText("Eliminar Grupo");
+        btnEliminar.setBorder(null);
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
@@ -274,48 +272,47 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelCursosLayout.createSequentialGroup()
-                        .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnPuntajeUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2)
                     .addGroup(PanelCursosLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnPuntajeUnidad, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PanelCursosLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCrearGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelCursosLayout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(38, 38, 38)
+                                .addComponent(btnCrearGrupos, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24))
+                            .addGroup(PanelCursosLayout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(12, 12, 12)))
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         PanelCursosLayout.setVerticalGroup(
             PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelCursosLayout.createSequentialGroup()
-                .addGroup(PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelCursosLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel7))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelCursosLayout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addGroup(PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(comboGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)
-                            .addComponent(btnCrearGrupos)
-                            .addComponent(btnEliminar))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addGap(21, 21, 21)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(PanelCursosLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8))
+                    .addGroup(PanelCursosLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(comboGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCrearGrupos, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -328,7 +325,7 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelCursos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(PanelCursos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -356,12 +353,17 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-
+            PanelInfoSesionClase panelInfoSesionClase = new PanelInfoSesionClase(docente, cursoID, panelDashboard);
+            panelDashboard.removeAll();
+            panelDashboard.add(panelInfoSesionClase);
+            panelDashboard.revalidate();
+            panelDashboard.repaint();    
+            
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnPuntajeUnidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPuntajeUnidadActionPerformed
        
-        panelCalculoPuntaje panel = new panelCalculoPuntaje(docente, cursoID, panelDashboard);
+        panelCalculoPuntaje panel = new panelCalculoPuntaje(docente, cursoID,sesionID, panelDashboard);
         panel.setSize(panelDashboard.getWidth(), panelDashboard.getHeight());
 
         panelDashboard.removeAll();
@@ -469,7 +471,6 @@ public class PanelEstudianteCurso extends javax.swing.JPanel {
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<String> comboGrupo;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;

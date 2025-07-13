@@ -30,7 +30,7 @@ public class panelListaEstudiantes extends javax.swing.JPanel {
 
     private  Docente docente;    
     private EstudianteController controllerEstudiante;
-    private EstudianteCursoController controllerEst; // asegúrate de inicializarlo
+    private EstudianteCursoController controllerEst; 
     private List<EstudianteCurso> listaEstudiantesCurso;
 
     public panelListaEstudiantes(Docente docente, JPanel panelDashboard) {
@@ -54,7 +54,7 @@ List<EstudianteCurso> estudiantes = listaEstudiantesCurso;
 
     for (EstudianteCurso ec : estudiantes) {
         Estudiante est = ec.getEstudiante();
-        Curso curso = ec.getCurso(); // si luego le asignas nombre
+        Curso curso = ec.getCurso();
 
         model.addRow(new Object[]{
             est.getEstID(),
@@ -72,11 +72,11 @@ List<EstudianteCurso> estudiantes = listaEstudiantesCurso;
 }
 private void cargarTablaEstudiantes(List<EstudianteCurso> lista) {
     DefaultTableModel modelo = (DefaultTableModel) TablaEstudiantes.getModel();
-    modelo.setRowCount(0); // limpiar
+    modelo.setRowCount(0); 
 
     for (EstudianteCurso ec : lista) {
         Estudiante est = ec.getEstudiante();
-        Curso curso = ec.getCurso(); // si luego le asignas nombre
+        Curso curso = ec.getCurso();
 
         modelo.addRow(new Object[]{
             est.getEstID(),
@@ -106,6 +106,8 @@ private void cargarTablaEstudiantes(List<EstudianteCurso> lista) {
         btnPdf = new javax.swing.JButton();
         btnOrdenarDes = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         panelDashboard.setBackground(new java.awt.Color(204, 204, 204));
         panelDashboard.setPreferredSize(new java.awt.Dimension(635, 494));
@@ -152,7 +154,7 @@ private void cargarTablaEstudiantes(List<EstudianteCurso> lista) {
         });
         jScrollPane1.setViewportView(TablaEstudiantes);
 
-        btnOrdenarPuntos.setBackground(new java.awt.Color(0, 204, 204));
+        btnOrdenarPuntos.setBackground(new java.awt.Color(0, 0, 0));
         btnOrdenarPuntos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnOrdenarPuntos.setForeground(new java.awt.Color(255, 255, 255));
         btnOrdenarPuntos.setText("Ordenar Puntos ↑");
@@ -162,17 +164,18 @@ private void cargarTablaEstudiantes(List<EstudianteCurso> lista) {
             }
         });
 
-        btnPdf.setBackground(new java.awt.Color(255, 0, 51));
+        btnPdf.setBackground(new java.awt.Color(255, 255, 255));
         btnPdf.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnPdf.setForeground(new java.awt.Color(255, 255, 255));
+        btnPdf.setForeground(new java.awt.Color(0, 0, 0));
         btnPdf.setText("Imprimir PDF");
+        btnPdf.setBorder(null);
         btnPdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPdfActionPerformed(evt);
             }
         });
 
-        btnOrdenarDes.setBackground(new java.awt.Color(0, 204, 204));
+        btnOrdenarDes.setBackground(new java.awt.Color(0, 0, 0));
         btnOrdenarDes.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnOrdenarDes.setForeground(new java.awt.Color(255, 255, 255));
         btnOrdenarDes.setText("Ordenar Puntos ↓");
@@ -183,8 +186,15 @@ private void cargarTablaEstudiantes(List<EstudianteCurso> lista) {
         });
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/ListAlumno.png"))); // NOI18N
         jLabel7.setText("Lista de Estudiantes:");
+
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Visualiza a los estudiantes registrados en el curso seleccionado. Puedes ordenar la lista por puntaje");
+
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("acumulado y generar un reporte en PDF con un solo clic.");
 
         javax.swing.GroupLayout panelDashboardLayout = new javax.swing.GroupLayout(panelDashboard);
         panelDashboard.setLayout(panelDashboardLayout);
@@ -194,31 +204,38 @@ private void cargarTablaEstudiantes(List<EstudianteCurso> lista) {
                 .addContainerGap()
                 .addGroup(panelDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
-                    .addGroup(panelDashboardLayout.createSequentialGroup()
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDashboardLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnOrdenarPuntos, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
-                        .addComponent(btnOrdenarDes, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
-                        .addComponent(btnPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelDashboardLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
+                        .addGroup(panelDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addGroup(panelDashboardLayout.createSequentialGroup()
+                                .addComponent(btnOrdenarPuntos, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnOrdenarDes, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelDashboardLayout.setVerticalGroup(
             panelDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDashboardLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel7)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel1)
+                .addGap(0, 0, 0)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnOrdenarDes, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnOrdenarPuntos, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32))
+                .addGap(41, 41, 41))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -229,7 +246,7 @@ private void cargarTablaEstudiantes(List<EstudianteCurso> lista) {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(panelDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 494, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -239,7 +256,6 @@ private void cargarTablaEstudiantes(List<EstudianteCurso> lista) {
             return;
         }
 
-        // Usar el controller para ordenar ascendentemente
         List<EstudianteCurso> ordenadosAsc = controllerEst.ordenarPorNotaAscendente(listaEstudiantesCurso);
         cargarTablaEstudiantes(ordenadosAsc);
     }//GEN-LAST:event_btnOrdenarPuntosActionPerformed
@@ -258,7 +274,6 @@ private void cargarTablaEstudiantes(List<EstudianteCurso> lista) {
         return;
     }
 
-    // Usa el controlador que llama al service y al árbol
     List<EstudianteCurso> ordenados = controllerEst.ordenarPorNotaDescendente(listaEstudiantesCurso);
     cargarTablaEstudiantes(ordenados);
         
@@ -271,6 +286,8 @@ private void cargarTablaEstudiantes(List<EstudianteCurso> lista) {
     private javax.swing.JButton btnOrdenarDes;
     private javax.swing.JButton btnOrdenarPuntos;
     private javax.swing.JButton btnPdf;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelDashboard;

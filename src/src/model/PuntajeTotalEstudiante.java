@@ -12,20 +12,22 @@ public class PuntajeTotalEstudiante {
     private int codigo;
     private String nombreCompleto;
     private int unidad;
-    private int semanas;
+    private int sesiones;
     private int totalPuntaje;
-    private double promedioPorSemana;
+    private double promedio;
+    private int puntajeMaximo;
 
     public PuntajeTotalEstudiante() {
     }
-    
-    public PuntajeTotalEstudiante(int codigo, String nombreCompleto, int unidad, int semanas, int totalPuntaje, double promedioPorSemana) {
+
+    public PuntajeTotalEstudiante(int codigo, String nombreCompleto, int unidad, int sesiones, int totalPuntaje, double promedio, int puntajeMaximo) {
         this.codigo = codigo;
         this.nombreCompleto = nombreCompleto;
         this.unidad = unidad;
-        this.semanas = semanas;
+        this.sesiones = sesiones;
         this.totalPuntaje = totalPuntaje;
-        this.promedioPorSemana = promedioPorSemana;
+        this.promedio = promedio;
+        this.puntajeMaximo = puntajeMaximo;
     }
 
     public int getCodigo() {
@@ -52,12 +54,12 @@ public class PuntajeTotalEstudiante {
         this.unidad = unidad;
     }
 
-    public int getSemanas() {
-        return semanas;
+    public int getSesiones() {
+        return sesiones;
     }
 
-    public void setSemanas(int semanas) {
-        this.semanas = semanas;
+    public void setSesiones(int sesiones) {
+        this.sesiones = sesiones;
     }
 
     public int getTotalPuntaje() {
@@ -68,13 +70,23 @@ public class PuntajeTotalEstudiante {
         this.totalPuntaje = totalPuntaje;
     }
 
-    public double getPromedioPorSemana() {
-        return promedioPorSemana;
+    public double getPromedio() {
+        return promedio;
     }
 
-    public void setPromedioPorSemana(double promedioPorSemana) {
-        this.promedioPorSemana = promedioPorSemana;
+    public void setPromedio(double promedio) {
+        this.promedio = promedio;
     }
+
+    public int getPuntajeMaximo() {
+        return puntajeMaximo;
+    }
+
+    public void setPuntajeMaximo(int puntajeMaximo) {
+        this.puntajeMaximo = puntajeMaximo;
+    }
+
+    
 
 
     

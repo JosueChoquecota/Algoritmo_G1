@@ -20,6 +20,7 @@ import src.model.SesionClase;
 import src.model.SesionDetalle;
 import src.util.ConexionBD;
 import src.view.estudiante.panelReprogramacion;
+import src.view.registrocurso.panelCursosDocente;
 
 /**
  *
@@ -30,6 +31,7 @@ public class PanelInfoSesionClase extends javax.swing.JPanel {
     private Docente docente;
     private int cursoID;
     private JPanel panelDashboard;
+    private panelCursosDocente panelDocente;
     
     public PanelInfoSesionClase(Docente docente, int cursoID, JPanel panelDashboard) {
         this.docente = docente;
@@ -52,7 +54,7 @@ public class PanelInfoSesionClase extends javax.swing.JPanel {
         modelo.setRowCount(0);
 
         for (Object[] fila : sesiones) {
-            modelo.addRow(fila); // Esto ya contiene sesionID, unidad, semana, fecha, tipo, horas
+            modelo.addRow(fila);
         }
     }
     private int obtenerSesionIDDesdeTabla(int fila) {
@@ -72,6 +74,7 @@ public class PanelInfoSesionClase extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         btnRepro = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
 
         PanelCursos.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -117,7 +120,7 @@ public class PanelInfoSesionClase extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(TablaSesiones);
 
-        btnSeleccionarCurso.setBackground(new java.awt.Color(255, 51, 102));
+        btnSeleccionarCurso.setBackground(new java.awt.Color(0, 0, 0));
         btnSeleccionarCurso.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSeleccionarCurso.setForeground(new java.awt.Color(255, 255, 255));
         btnSeleccionarCurso.setText("Seleccionar");
@@ -128,20 +131,31 @@ public class PanelInfoSesionClase extends javax.swing.JPanel {
         });
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Cursos de Docente:");
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Aqui va todos los cursos del docente para seleccionar al que le corresponde");
 
-        btnRepro.setBackground(new java.awt.Color(51, 51, 255));
+        btnRepro.setBackground(new java.awt.Color(0, 0, 0));
         btnRepro.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnRepro.setForeground(new java.awt.Color(255, 255, 255));
         btnRepro.setText("Reprogramación");
         btnRepro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReproActionPerformed(evt);
+            }
+        });
+
+        btnVolver.setBackground(new java.awt.Color(255, 255, 255));
+        btnVolver.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnVolver.setForeground(new java.awt.Color(0, 0, 0));
+        btnVolver.setText("Volver");
+        btnVolver.setBorder(null);
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
             }
         });
 
@@ -159,7 +173,8 @@ public class PanelInfoSesionClase extends javax.swing.JPanel {
                             .addComponent(jLabel7))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelCursosLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnRepro, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnSeleccionarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -177,7 +192,8 @@ public class PanelInfoSesionClase extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSeleccionarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRepro, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRepro, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -241,12 +257,21 @@ public class PanelInfoSesionClase extends javax.swing.JPanel {
        panelDashboard.repaint();
     }//GEN-LAST:event_btnReproActionPerformed
 
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        panelCursosDocente panel = new panelCursosDocente(docente, panelDashboard);
+        panelDashboard.removeAll();
+        panelDashboard.add(panel);
+        panelDashboard.revalidate();
+        panelDashboard.repaint();
+    }//GEN-LAST:event_btnVolverActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelCursos;
     private javax.swing.JTable TablaSesiones;
     private javax.swing.JButton btnRepro;
     private javax.swing.JButton btnSeleccionarCurso;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;

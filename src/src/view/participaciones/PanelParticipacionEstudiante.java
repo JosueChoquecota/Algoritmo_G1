@@ -67,27 +67,30 @@ public class PanelParticipacionEstudiante extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         labelNombre = new javax.swing.JLabel();
 
-        PanelCursos.setBackground(new java.awt.Color(204, 204, 204));
+        PanelCursos.setBackground(new java.awt.Color(234, 234, 234));
+        PanelCursos.setForeground(new java.awt.Color(204, 204, 204));
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgs/Puntos.png"))); // NOI18N
         jLabel7.setText("Asignar Puntos a: ");
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Aqui va todos los cursos del docente para seleccionar al que le corresponde");
 
-        btnVolver.setBackground(new java.awt.Color(153, 153, 255));
+        btnVolver.setBackground(new java.awt.Color(255, 255, 255));
         btnVolver.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnVolver.setForeground(new java.awt.Color(255, 255, 255));
+        btnVolver.setForeground(new java.awt.Color(0, 0, 0));
         btnVolver.setText("Volver");
+        btnVolver.setBorder(null);
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVolverActionPerformed(evt);
             }
         });
 
-        btnAsignar.setBackground(new java.awt.Color(255, 153, 153));
+        btnAsignar.setBackground(new java.awt.Color(0, 0, 0));
         btnAsignar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnAsignar.setForeground(new java.awt.Color(255, 255, 255));
         btnAsignar.setText("Asignar");
@@ -142,7 +145,7 @@ public class PanelParticipacionEstudiante extends javax.swing.JPanel {
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(PanelCursosLayout.createSequentialGroup()
                                 .addComponent(jLabel7)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(labelNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(PanelCursosLayout.createSequentialGroup()
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -150,12 +153,12 @@ public class PanelParticipacionEstudiante extends javax.swing.JPanel {
                     .addGroup(PanelCursosLayout.createSequentialGroup()
                         .addGap(319, 319, 319)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(PanelCursosLayout.createSequentialGroup()
                             .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25))
         );
@@ -166,9 +169,9 @@ public class PanelParticipacionEstudiante extends javax.swing.JPanel {
                 .addGroup(PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(labelNombre))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addGap(21, 21, 21)
+                .addGap(27, 27, 27)
                 .addGroup(PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -181,7 +184,7 @@ public class PanelParticipacionEstudiante extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelCursosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAsignar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24))
@@ -200,41 +203,42 @@ public class PanelParticipacionEstudiante extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-       
+          PanelEstudianteCurso panelEstudianteCurso = new PanelEstudianteCurso(curso.getCursoID(), docente, sesionID, panelDashboard);
+            panelDashboard.removeAll();
+            panelDashboard.add(panelEstudianteCurso);
+            panelDashboard.revalidate();
+            panelDashboard.repaint();  
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsignarActionPerformed
-       ParticipacionDAO participacionDAO = new ParticipacionDAO(new ConexionBD());
-       ParticipacionesService service = new ParticipacionesService(participacionDAO);
-       ParticipacionController controller = new ParticipacionController(service, participacionDAO);
+        ParticipacionDAO participacionDAO = new ParticipacionDAO(new ConexionBD());
+        ParticipacionesService service = new ParticipacionesService(participacionDAO);
+        ParticipacionController controller = new ParticipacionController(service);
 
-       int puntos = Integer.parseInt(boxPuntos.getSelectedItem().toString()); 
-       String aporte = boxAporte.getSelectedItem().toString(); 
-       String observacion = txtArea.getText();
+        int puntos = Integer.parseInt(boxPuntos.getSelectedItem().toString()); 
+        String aporte = boxAporte.getSelectedItem().toString(); 
+        String observacion = txtArea.getText();
 
-       Participacion participacion = new Participacion();
-       participacion.setPuntaje(puntos);
-       participacion.setTipo(aporte);
-       participacion.setObservacion(observacion);
-       participacion.setFecha(LocalDate.now());
+        Participacion participacion = new Participacion();
+        participacion.setPuntaje(puntos);
+        participacion.setTipo(aporte);
+        participacion.setObservacion(observacion);
+        participacion.setFecha(LocalDate.now());
 
-       participacion.setEstudiante(estudiante);
-       participacion.setDocente(docente);
-       SesionClase sesion = new SesionClase();
-       System.out.println("Estudiante: " + estudiante);
-       System.out.println("Estudiante ID: " + estudiante.getEstID());
-       sesion.setSesID(sesionID);
-       participacion.setSesion(sesion);
+        participacion.setEstudiante(estudiante);
+        participacion.setDocente(docente);
 
-       boolean exito = controller.insertarParticipacion(participacion);
+        SesionClase sesion = new SesionClase();
+        sesion.setSesID(sesionID);
+        participacion.setSesion(sesion);
 
-       if (exito) {
-           JOptionPane.showMessageDialog(null, "✅ Participación asignada correctamente");
-       } else {
-           JOptionPane.showMessageDialog(null, "❌ Error al asignar participación");
-       }
+        boolean exito = controller.registrarParticipacion(participacion);
 
-        
+        if (exito) {
+            JOptionPane.showMessageDialog(null, "✅ Participación asignada correctamente.");
+        } else {
+            JOptionPane.showMessageDialog(null, "⚠️ El estudiante ya alcanzó el máximo de 3 puntos para esta sesión.");
+        }    
         
     }//GEN-LAST:event_btnAsignarActionPerformed
 

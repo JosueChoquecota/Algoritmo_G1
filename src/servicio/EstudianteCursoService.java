@@ -28,7 +28,7 @@ public class EstudianteCursoService {
         ArbolEstudianteCurso arbol = new ArbolEstudianteCurso();
 
         for (EstudianteCurso ec : estudiantesCurso) {
-            arbol.insertar(ec); // inserta por puntaje
+            arbol.insertar(ec);
         }
 
         List<EstudianteCurso> ordenados = new ArrayList<>();

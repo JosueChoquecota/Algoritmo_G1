@@ -22,6 +22,9 @@ public class ParticipacionController {
         this.participacionesService = service;
         this.participacion = dao;
     }
+    public ParticipacionController(ParticipacionesService participacionesService) {
+        this.participacionesService = participacionesService;
+    }
     
     public List<Participacion> listarParticipacionesPorEstudiante(int estID) {
         return participacionesService.obtenerParticipacionesPorEstudiante(estID);
@@ -30,6 +33,9 @@ public class ParticipacionController {
     // REQMS-010: Insertar participación
     public boolean insertarParticipacion(Participacion participacion) {
         return participacionesService.insertarParticipacion(participacion);
+    }
+     public boolean registrarParticipacion(Participacion participacion) {
+        return participacionesService.registrarParticipacion(participacion);
     }
 }
 
